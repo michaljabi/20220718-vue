@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dyrektywy to klucz do manipulacji zawartością widoku</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <style>
+       body {
+           font-family: Calibri, sans-serif;
+           padding: 3em;
+       }
+       h1, h2 {
+           border-bottom: 3px solid #55b780;
+       }
+       h2 {
+           border-width: 1px;
+           padding-left: 10px;
+           color: #38495f;
+       }
+       [v-cloak] {
+           visibility: hidden;
+       }
+    </style>
+</head>
+<body >
+    <!--
+        #Przykład: A-105
+        Przegląd najważniejszych wbudowanych w Vue - dyrektyw.
+
+        #cel:
+        Poznanie i zebranie na jednym widoku najważniejszych dyrektyw i zobrazowanie sposobu ich działania i przeznaczenia.
+    -->
+    <main id="app">
+        <h1>Inne przykłady użycia dyrektyw</h1>
+        <section>
+            <h2><code>v-for</code> | Iterowanie po elementach kolekcji (tablicy) </h2>
+            <!-- https://v3.vuejs.org/api/directives.html#v-for -->
+            <ol>
+                <li v-for="item in shoppingList">
+                    <strong>{{ item.name }}</strong> - {{item.amount+item.unit}}
+                </li>
+            </ol>
+            <ul>
+                <li v-for="(item, index) in shoppingList">
+                    <strong>{{ item.name }}</strong> - {{item.amount+item.unit}} | {{index}}
+                </li>
+            </ul>
+        </section>
+        <section>
+            <h2><code>v-model</code> | Przyjmowanie wartości od użytkownika (input): </h2>
+            <!-- https://v3.vuejs.org/api/directives.html#v-model -->
+            <form>
+                <label>
+                    Wpisz coś:
+                    <input v-model="inputSomething">
+                </label>
+                <p>
+                    {{inputSomething}}
+                </p>
+                <label>
+                    2 way data binding:
+                    <input v-model="inputSomething">
+                </label>
+            </form>
+        </section>
+        <section>
+            <h2><code>v-text</code> | Określanie textContent'u za pomocą dyrektywy</h2>
+            <!-- https://v3.vuejs.org/api/directives.html#v-text -->
+            <div v-text="'To jest jakiś inline text - podejrzyj inspektorem 😎'"></div>
+            <div> {{'to tak samo jakbym napisał tak !'}} </div>
+        </section>
+        <section>
+            <h2><code>v-once</code> | Tekst zbindowany tylko raz</h2>
+            <!-- https://v3.vuejs.org/api/directives.html#v-once -->
+            <div v-once>To się nie zmieni: {{ myText }}</div>
+            <div>Dla porównania, to się zmieni: {{ myText }}</div>
+            <button v-on:click="myText = 'Kliknięty!'">Kliknij mnie!</button>
+        </section>
+        <section>
+            <h2><code>v-else</code> | Połączenie odwrotnego przypadku do v-if (conditional rendering)</h2>
+            <!-- https://v3.vuejs.org/api/directives.html#v-else -->
+            <div v-if="isShown">jestem</div>
+            <div v-else>nie ma mnie</div>
+            <button v-on:click="isShown = !isShown">Toggle</button>
+        </section>
+        <section>
+            <h2><code>v-pre</code> | Obiekt nie podlega kompilacji w widoku</h2>
+            <!-- https://v3.vuejs.org/api/directives.html#v-pre -->
+            <div>{{'Nie widać wąsów'}}</div>
+            <div v-pre>{{'Widać wąsy'}}</div>
+        </section>
+        <section>
+            <h2><code>v-cloak</code> | Ukrycie elementu na czas bindowania widoku (potrzebny CSS)</h2>
+            <!-- https://v3.vuejs.org/api/directives.html#v-cloak -->
+            <div v-cloak>{{'Nie widać wąsów'}}</div>
+            <div >{{'Widać wąsy tylko w czasie kompilacji'}}</div>
+        </section>
+        <section>
+            <h2><code>v-on</code> | Przykład użycia modyfikatorów (.prevent)</h2>
+            <!-- https://v3.vuejs.org/api/directives.html#v-on -->
+            <a href="http://wp.pl" v-on:click.prevent="shout('Helo wp.pl')"> powinno prowadzić do wp.pl? </a>
+        </section>
+    </main>
+    <script>
+        const {createApp} = Vue;
+        const app = createApp({
+          data() {
+          	return {
+              isShown: true,
+              inputSomething: 'coś...',
+              myText: 'Mój tekst',
+              shoppingList: [
+                  {name: 'Pomidory', amount: 4, unit: 'kg.'},
+                  {name: 'Żarówki', amount: 2, unit: 'szt.'},
+                  {name: 'Klawiatura', amount: 1, unit: 'szt.'},
+              ]
+            }
+          },
+          methods: {
+          	shout(text) {
+              alert(text);
+            }
+          }
+        })
+        app.mount('#app')
+    </script>
+</body>
+</html>

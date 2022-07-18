@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Composition API - współdzielony stan danych</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <style>
+        body {
+            font-family: Calibri, Verdana, sans-serif;
+        }
+        main {
+            display: flex;
+            justify-content: center;
+        }
+        section {
+            width: 500px;
+            margin: 60px 5px;
+        }
+        header {
+            background-color: #ec8d37;
+            padding: 2px 6px;
+        }
+        .vue header {
+            background-color: #55b780;
+        }
+        .vue .container {
+            border-color: #55b780;
+        }
+        .container {
+            border: 1px dashed #ec8d37;
+            padding: 15px 10px;
+        }
+        .lights {
+            padding: 5px;
+            text-align: center;
+        }
+        .btn {
+            border: 1px solid black;
+            border-radius: 5px;
+            padding: 8px;
+            cursor: pointer;
+        }
+        .btn.btn-primary {
+            background-color: #55b780;
+        }
+    </style>
+</head>
+<body>
+    <main id="app">
+        <section class="vue">
+            <header>
+                <h1>Wyłącznik / Włącznik - wersja Vue</h1>
+            </header>
+            <lights-switcher></lights-switcher>
+            <lights-switcher></lights-switcher>
+            <lights-switcher></lights-switcher>
+        </section>
+    </main>
+    <script>
+	    const { ref, computed } = Vue;
+	    const lightsVisible = ref(true);
+	    // nowy sposób na "computed" property:
+	    const switcherName = computed(() => lightsVisible.value ? 'Wyłącznik' : 'Włącznik')
+	    // W tym przykładzie idziemy krok dalej,
+	    // metoda zmieniająca wartość lightsVisible jest dostarczana również z osobnej przestrzeni
+        const toggleTheLight = () => {
+            lightsVisible.value = !lightsVisible.value;
+        }
+    </script>
+    <script>
+	    const { createApp } = Vue;
+	    const app = createApp({});
+        app.component('lights-switcher', {
+	        setup() {
+			   return { lightsVisible, toggleTheLight, switcherName }
+            },
+        	template: `
+        	    <div class="container">
+                    <div class="lights" v-if="lightsVisible"> 💡 - 💡 - 💡 - 💡 </div>
+                    <button
+                            class="btn btn-primary switch"
+                            v-on:click="toggleTheLight"
+                    >
+                        {{switcherName}}
+                    </button>
+                </div>
+        	`
+        })
+        app.mount('#app');
+    </script>
+</body>
+</html>

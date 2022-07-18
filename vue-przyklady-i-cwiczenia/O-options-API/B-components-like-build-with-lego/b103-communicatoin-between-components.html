@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Komunikacja pomiędzy komponentami</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <!--
+        #Przykład B-103:
+        Komunikacja pomiędzy komponentami w relacji parent-child zachodzi po przez wykorzystanie tzw. props.
+        Są one z perspektywy rodzica - jak bidnowane "atrybuty" elementu HTML'owego.
+        Jeśli chodzi o komunikację child-parent - "najczystszym" rozwiązaniem jest użycie tzw. eventów i event emitera.
+        Dostęp do $emit mamy z poziomu pola każdej instancji komponentu w Vue.
+
+        #cel:
+        Poznanie podstawowego sposobu komunikacji pomiędzy komponentami: (data - down (props), events - up ($emit) ).
+    -->
+    <!-- @hint: Tutaj dochodzimy do klasycznego SPA, gdzie widać jedynie odniesienie do głównego id: app w kodzie HTML aplikacji -->
+    <div id="app"></div>
+    <script>
+      const MyTitle = {
+          props: {
+            superTitle: String // @hint: Tutaj określamy tzw props'a (nazwa i przeznaczenie podobne jak np. w React) i jego typ
+          },
+            data() {
+
+            },
+            // Dzięki zastosowaniu $emit() mamy możliwość komunikacji "w górę"
+          template: `
+            <h2>
+                {{superTitle}}
+                <button @click="$emit('on-shout', superTitle)"> 🎉 </button>
+            </h2>
+          `
+      }
+
+      const { createApp } = Vue;
+      const app = createApp({
+        components: {
+            MyTitle
+        },
+        data() {
+            return {
+		        applicationTitle: 'Moja super aplikacja'
+	        }
+        },
+        methods: {
+          shoutTheTitle(title) {
+              alert(title)
+          }
+        },
+        template: `
+            <div>
+                <h1>Przykład komunikacji do komponentu</h1>
+                <my-title super-title="Hello World - przykładowy tytuł" @on-shout="shoutTheTitle($event)"></my-title>
+                <div>pamiętaj, że nie musimy przekazywać statycznych wartości, możemy bindować:</div>
+                <my-title :super-title="applicationTitle"></my-title>
+                <my-title v-bind:super-title="applicationTitle"></my-title>
+                <div>Pamiętaj, że bindowanie jest jak "otwarcie świata" JS po prawej stronie (w środku " ") </div>
+                <my-title :super-title=" 1 + 1 + '100' "></my-title>
+            </div>
+        `
+      })
+      app.mount('#app')
+    </script>
+</body>
+</html>

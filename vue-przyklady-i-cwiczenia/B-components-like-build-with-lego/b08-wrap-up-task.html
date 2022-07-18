@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Zadanie z Komponentów Vue</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" crossorigin="anonymous">
+</head>
+<body>
+    <!--
+        #Przykład B-08:
+        Rozwiąż zadanie.
+        Zrób komponent podsumowujący ceny wszystkich elementów w koszyku
+
+        #1 Etap:
+        Po "zamontowaniu" komponentu powinny załadować się wszystkie "items". Odbierz je z przygotowanej funkcji
+        "loadItems()", która zwraca "Promise"
+
+        #2 Etap:
+        Zdefiniuj nową wartość, która będzie reprezentowała sumę cen elementów w koszyku.
+
+        #3 Etap:
+        Przekaż do komponentu ShoppingList wartość "inWallet" z aplikacji - reprezentuje ona ile użytkownik posiada
+        pieniędzy w portfelu.
+
+        * #4 Etap:
+        Korzystając z własności bindowania atrybutu "style" jako obiekt zastosuj zapis obiektowy:
+        :style="{backgroundColor: sumBackground}"
+
+        Gdzie "sumBackground" będzie zmieniało się na kolor: 'lightgreen' lub 'darkred' w zależności od tego
+        czy suma elementów w koszyku jest większa niż ilość pieniędzy w portfelu (przekazanych z inWallet).
+
+
+        #cel:
+        Przećwiczenie lifecycle methods oraz computed properties na praktycznym przykładzie z elementami w koszyku.
+    -->
+      <div id="app"></div>
+      <script>
+	      const { ref } = Vue;
+          const loadItems = () => Promise.resolve([
+            {title: 'Komputer', value: 3450},
+            {title: 'Słuchawki Bluetooth', value: 890},
+            {title: 'Smartphone', value: 1800},
+          ])
+
+          const ShoppingList = {
+	      	template: `
+                <section>
+                    <h3>Lista elementów w koszyku:</h3>
+                    <ul class="list-group w-75 mt-3 mx-auto">
+                        <li class="list-group-item d-flex justify-content-between" v-for="item in items">
+                            {{item.title}} <strong>{{item.value}} zł</strong>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between border-bottom-0">
+                            <div></div>
+                            <div class="p-2" >suma: <strong> {{ 0 }} zł</strong></div>
+                        </li>
+                    </ul>
+                </section>
+            `,
+            setup() {
+              const items = ref([])
+              return {items}
+            }
+          }
+
+        const { createApp } = Vue;
+        const app = createApp({
+            components: {
+	            ShoppingList
+            },
+            setup() {
+            	return {
+                    inWallet: ref(6000)
+                }
+            },
+            template: `
+                <main class="container my-5">
+                    <ShoppingList />
+                </main>
+            `
+          })
+        app.mount('#app')
+      </script>
+</body>
+</html>

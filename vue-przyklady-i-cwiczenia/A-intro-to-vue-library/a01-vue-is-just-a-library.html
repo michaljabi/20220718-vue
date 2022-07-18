@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue to po prostu biblioteka JS!</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <!--
+        @hint: poniżej jest wariant produkcyjny biblioteki
+        (zamiana komentarzy, jeśli kodzik gotowy 😎)
+    -->
+    <!-- <script src="https://unpkg.com/vue@next/dist/vue.global.prod.js"></script> -->
+    <style>
+        body {
+            font-family: Tahoma, sans-serif;
+        }
+
+        main {
+            width: 500px;
+            margin: 60px auto;
+        }
+
+        header {
+            background-color: #ec8d37;
+            padding: 2px 6px;
+        }
+
+        .container {
+            border: 1px dashed #ec8d37;
+            padding: 15px 10px;
+        }
+    </style>
+</head>
+<body>
+<!--
+    #Przykład: A-01
+    Dzięki Vue:
+    1. Dostajemy API do bardzo uporządkowanego definiowania elementów na stronie
+    2. Mamy możliwość skorzystania z komponentowej budowy naszego UI.
+
+    #cel:
+    Zrozumienie najprostszego sposobu wpinania Vue.js do strony HTML.
+    Poznania i pierwsze kroki z "template" HTML w Vue.
+    - dla zaznajomionych z innymi "komponentowymi" framework'ami,
+     jest to również moment na porównanie Vue do pozostałych.
+  -->
+<main id="app">
+    <header>
+        <h1>{{ title }}</h1>
+        <h5>{{ subtitle }}</h5>
+    </header>
+    <div class="container">{{ someContent }}</div>
+    <div class="container">{{ moreExplanation }}</div>
+</main>
+<!-- lub na popularnych (div'ach): <div id="cokolwiek">...</div> -->
+<script>
+	const createApp = Vue.createApp
+	const app = createApp( {
+		// @hint: zwróć uwagę, że to co zwraca .setup() - to po prostu obiekt JS (klucze - wartości)
+		setup() {
+			return {
+                title: 'To jest prosta strona',
+                subtitle: 'wykorzystująca Vue.js',
+                // @hint: znak ` [backtick] pozwala (min.in.) na umieszczanie  multiline string'a
+                someContent: `
+                    Z punktu widzenia klasycznego HTMLa.
+                    Zapisy powyżej w {{}}.
+                    Nie mają sensu!!! Jednak pod spodem wszystkim
+                    zarządzają JavaScript'y
+                `,
+				moreExplanation: `
+                    To właśnie jedna z cech SPA z frameworkami JavaScript'owymi.
+                    Pewnie znasz technologie w których widoki HTML były generowane po stronie back-endu.
+                    Np. .NET (.aspx), Java EE (.jsp), PHP (.php) etc. Tutaj widoki dynamicznie będą generowane,
+                    przez JavaScript - dzięki użyciu DOM API
+                `
+            }
+        }
+	} )
+
+    app.mount( '#app' )
+</script>
+</body>
+</html>

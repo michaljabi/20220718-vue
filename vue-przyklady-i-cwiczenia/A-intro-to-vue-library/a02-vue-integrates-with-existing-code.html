@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Integracja Vue.js z istniejącym kodem aplikacji</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <style>
+        body {
+            font-family: Calibri, Verdana, sans-serif;
+        }
+        main {
+            display: flex;
+            justify-content: center;
+        }
+        section {
+            width: 500px;
+            margin: 60px 5px;
+        }
+        header {
+            background-color: #ec8d37;
+            padding: 2px 6px;
+        }
+        .vue header {
+            background-color: #55b780;
+        }
+        .vue .container {
+            border-color: #55b780;
+        }
+        .container {
+            border: 1px dashed #ec8d37;
+            padding: 15px 10px;
+        }
+        .lights {
+            padding: 5px;
+            text-align: center;
+        }
+        .btn {
+            border: 1px solid black;
+            border-radius: 5px;
+            padding: 8px;
+            cursor: pointer;
+        }
+        .btn.btn-primary {
+            background-color: #ec8d37;
+        }
+    </style>
+</head>
+<body>
+    <!--
+        #Przykład: A-02
+        Jak Vue może być zastosowany, gdy istnieje już kod Aplikacji Web?
+
+        #cel:
+        Zrozumienie ogromnej elastyczności podejścia w Vue, gdzie jego instancja,
+        może ko-egzystować w istniejącym już kodem naszej aplikacji.
+        Poznanie podstawowych dyrektyw i sposób ich używania w template.
+      -->
+    <main>
+        <section id="myApp">
+            <header>
+                <h1>Inna część — Vanilla JS</h1>
+            </header>
+            <div class="container">
+                <div class="lights"> 💡 - 💡 - 💡 - 💡 </div>
+                <button class="btn btn-primary switch" onclick="toggleTheLight()"> Włącznik światła </button>
+            </div>
+        </section>
+        <section id="vuePart" class="vue">
+            <header>
+                <h1>{{ title }}</h1>
+                <!--
+                    @hint: tekst renderowany w template może być powtórzony wielokrotnie, np:
+                        dalej w <p>{{title}}</p>.
+                        Problem następuje w momencie, gdy chce użyć interpolacji np {{something}} a something nie jest zwracana w setup(): {}
+                        [Vue warn]: pokaże się w konsoli narzędzi developerskich (F12)
+                -->
+            </header>
+            <!--
+                @hint: dyrektywa v-html również może być powtórzona winnym elemencie
+                (jednak używanie jej 2 razy !w tym samym! elemencie — jest niepotrzebne [i mylące], pierwszy wygrywa!)
+             -->
+            <div class="container" v-html="htmlContent"></div>
+            <div class="container" >{{difference}}</div>
+        </section>
+    </main>
+    <script>
+        // Vanilla PART:
+        const $lights = document.querySelector('.lights');
+        function toggleTheLight() {
+	        const isDisplayNone = $lights.style.display === 'none';
+	        $lights.style.display = isDisplayNone ? 'block' : 'none';
+        }
+        // Vue JS PART:
+        // Dla wygody używamy destrukturyzacji:
+        const { createApp } = Vue;  // https://developer.mozilla.org/pl/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
+	    const app = createApp( {
+          setup() {
+          	return {
+              title: 'To jest część strony z Vue.js',
+              htmlContent: `
+                    wykorzystująca <mark>Vue.js</mark><br>
+                    oraz pokazująca<br>
+                    Wykorzystanie dyrektyw (w tym układzie chodzi o <strong>v-html</strong>)
+              `,
+              difference: '<p>tekst<br>do porównania</p>'
+            }
+          }
+	    })
+        app.mount('#vuePart')
+    </script>
+</body>
+</html>

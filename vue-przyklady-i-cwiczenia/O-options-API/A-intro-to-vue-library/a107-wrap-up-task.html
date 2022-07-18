@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Zadanie z Vue</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <!-- @hint: CSSy do Bootstrap zostały dodane z oficjalnego CDN'a -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" crossorigin="anonymous">
+</head>
+<body>
+    <!--
+        #Przykład: A-107
+        Rozwiąż zadanie nawiązujące do poznanych już elementów Vue.
+
+        #1 Zadanie:
+        Korzystając z poznanej wcześniej mechaniki działania Vue oraz dyrektyw zarządzających widokiem.
+        Spraw aby lista zakupów działała poprawnie.
+        Tj. po wpisaniu w "input" nazwy przedmiotu i kliknięciu na "Dodaj do listy"
+        Na liście "list-group" ma pojawić się nowa rzecz "list-group-item" do kupienia
+        Po czym pole 'input' powinno się "zerować" (wyczyść zawartość input'a po dodaniu elementu do listy)
+
+        #2 Zadanie:
+        Wyświetl informację korzystając z HTML:
+        <div class="alert alert-warning">
+            Brak elementów na liście, czy chcesz dodać coś nowego?
+        </div>
+        Jeśli nie posiadamy żadnego elementu na liście
+
+        @hint:
+        Wykorzystaj poznane dyrektywy: v-model, v-for, v-if, v-else, v-on
+
+        #cel:
+        Sprawdzenie siebie / utrwalenie interpolacji i poznanych wcześniej dyrektyw zarządzających widokiem.
+        Połączenie zastosowania wszystkich elementów w jedną całość - ćwiczenie praktyczne.
+    -->
+    <main id="app" class="container p-5">
+        <h1>Lista zakupów: </h1>
+        <section class="my-3">
+            <div class="input-group w-75 m-auto">
+                <div class="input-group-prepend" >
+                    <label for="item" class="input-group-text">Nowy element:</label>
+                </div>
+                <input id="item" class="form-control" type="text">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="button">Dodaj do listy</button>
+                </div>
+            </div>
+        </section>
+        <ul class="list-group">
+            <li class="list-group-item"> Przykładowy element na liście</li>
+        </ul>
+    </main>
+    <script>
+	    // @hint: wykorzystaj przygotowane do tego zdania pola w instancji Vue:
+	    const { createApp } = Vue;
+        const app = createApp({
+		    data() {
+		    	return {
+                    itemName: '',
+                    shoppingList: []
+                }
+            },
+		    methods: {
+		    	handleAddItemToList() {
+		    		console.log('Dodaje do listy', this.itemName)
+                }
+            }
+	    })
+        app.mount('#app')
+    </script>
+</body>
+</html>

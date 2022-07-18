@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mój własny komponent</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <style>
+        body {
+            font-family: Calibri, Verdana, sans-serif;
+        }
+        main {
+            width: 1024px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+        }
+        .component-wrapper {
+            padding: 2em;
+            border: 1px solid #ccc;
+            border-radius: .5em;
+            margin-bottom: 2em;
+        }
+    </style>
+</head>
+<body>
+    <!--
+        #Przykład B-104:
+        Twój komponent w Vue.
+
+        #1 Zadanie:
+        Przygotuj własny komponent MyOwnPart i osadź go na widoku w miejscu:
+        "{{ 'Miejsce na Twój komponent' }}"
+
+        Przekaż mu tytuł 'yourTitle' tak aby ten został wyświetlony, przykładowo jako h2:
+        `<h2> Hello Component </h2> `
+
+        Na komponencie umieść przycisk - po jego kliknięciu mamy emitować event - razem z tekstem:
+        np. 'Hello My App'
+        Tekst ten powinien zostać "złapany" przez główną instancje i wpisany pod "componentSaid"
+        oraz wyświetlony na ekranie.
+        @hint: (pamiętaj o składni handleEvent($event) - tutaj Ci się przyda !)
+
+        #cel:
+        Utrwalenie sobie zagadnień sposobu komunikacji z i do komponentu.
+    -->
+    <div id="app"></div>
+    <script>
+      const MyOwnPart = {
+
+      }
+
+      const { createApp } = Vue;
+      const app = createApp({
+        components: {},
+        data(){
+            return {
+                yourTitle: 'Hello Component',
+                componentSaid: ''
+            }
+        },
+        methods: {
+          handleGreetings(greetings = '') {
+              this.componentSaid = greetings;
+          }
+        },
+        template: `
+            <main>
+                <h1>Przykład komunikacji z i do komponentu</h1>
+                <section class="component-wrapper">
+                    {{ 'Miejsce na Twój komponent' }}
+                </section>
+                <section>
+                    Informacja od komponentu: <strong>{{ componentSaid }}</strong>
+                </section>
+            </main>
+        `
+      })
+      app.mount('#app')
+    </script>
+</body>
+</html>

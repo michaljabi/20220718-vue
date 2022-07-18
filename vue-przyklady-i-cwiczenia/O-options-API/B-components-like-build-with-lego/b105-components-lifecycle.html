@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cykl życia komponentu</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <!--
+        #Przykład B-105:
+        Trzy podstawowe metody cyklu życia komponentu, pomagające nam ustalić momenty w  których:
+        - chcemy np. pobrać dane z back-endu, (created)
+        - chcemy pokazać że coś załadowało się i jest osadzone na widoku (mounted)
+        - chcemy zwolnić pamięć i zakończyć wszelkie operacje asynchroniczne (beforeDestroy)
+
+        #cel:
+        Zrozumienie cyklu życia komponentu w kontekście budowy aplikacji SPA. Pełne widoki aplikacji są sterowane
+        za pomocą JavaScript we framework'u Vue, instancje obiektów są tworzenie i usuwane przez Vue.js.
+        Dzięki temu mamy dostęp do tzw. metod cyklu życia.
+    -->
+    <div id="app"></div>
+    <script>
+
+      // usuń komentarze ze znaczkiem '#':
+      // aby zobaczyć problem "memory leak" i sposób pozbycia się go (metoda: beforeUnmount)
+
+      let registeredId = 0;
+      const HeroBanner = {
+        template: `
+            <section style="background-color: dodgerblue; padding: 20px"> Mój Super banner </section>
+        `,
+        created() {
+          console.log('HeroBanner created !')
+          //# const myNumber = ++registeredId;
+          //# this.intervalID = setInterval(() => console.log('Welcome number: ' + myNumber), 500)
+        },
+        mounted() {
+          console.log('HeroBanner mounted !')
+        },
+        beforeUnmount() {
+          console.log('HeroBanner beforeUnmount !')
+          //# clearInterval(this.intervalID)
+        }
+      }
+
+      const { createApp } = Vue;
+      const app = createApp({
+        components: {
+            HeroBanner
+        },
+        data() {
+        	return {
+                isShown: true
+            }
+        },
+        methods: {
+            handleToggleShow() {
+                this.isShown = !this.isShown;
+            }
+        },
+        // @hint: Nazwa komponentu może być zdefiniowana jako HeroBanner (Zapis z dużych liter - syntax podobny do JSX)
+        template: `
+            <main>
+                <button @click="handleToggleShow">Pokaż / Ukryj</button>
+                <HeroBanner v-if="isShown" />
+            </main>
+        `
+      })
+      app.mount('#app')
+    </script>
+</body>
+</html>

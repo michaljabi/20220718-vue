@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Komponent to po prostu zwykły obiekt JS z konkretnymi polami</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <!--
+        #Przykład B-102:
+        Inny, prostszy sposób definiowania komponentów.
+        Komponenty specjalnie zostały "oddzielone" tagami <script> aby zobrazować iż docelowo - będą to osobne pliki.
+
+        #cel:
+        Poznanie prostego sposobu przydzielania komponentów do instancji Vue - który szerzej będziemy stosować w Node.js
+        Jest to przygotowanie do stosowania plików .vue (które poznamy po użyciu scaffold'era: @vue/cli)
+    -->
+    <main id="app">
+        <header>
+            <h1> 📦📦📦 Komponenty to po prostu zwykłe obiekty JS....</h1>
+            <div>
+                Ten przykład pomoże Ci zrozumieć, że możemy odseparować zapis komponentów od Vue <br>
+                Wystarczy zadeklarować komponenty jako zwykłe obiekty - z odpowiednimi polami, które już znasz: <br>
+                <code> data, methods</code>. Dochodzą jeszcze wartości <code>name, template</code> <br>
+                Wykorzystywany tutaj zapis będzie towarzyszył nam najczęściej - ponieważ to podobnej składni będziemy używać w Node.js. <br>
+                Warto więc to przyswoić i zauważyć późniejszą analogię.
+            </div>
+        </header>
+
+        <!-- Poniżej następuję składanie naszych "klocków" -->
+        <div class="page">
+            <the-header></the-header>
+            <section>
+                <h2> Strona </h2>
+                <name-shouter> </name-shouter>
+                <name-shouter> </name-shouter>
+            </section>
+            <the-footer> </the-footer>
+        </div>
+    </main>
+    <script>
+        // Miejsce na komponent Header:
+	    const TheHeader = {
+		    template: `
+                <header>
+                    <h1>Hello Header</h1>
+                    <hr>
+                </header>
+		    `
+	    }
+    </script>
+    <script>
+        // Komponent NameShouter
+        const NameShouter = {
+	        template: `
+                <div>
+                    Podaj imię: <input v-model="name"> <button @click="shoutMyName"> Krzyknij! </button>
+                    <p v-if="message">
+                        {{message}}
+                    </p>
+                </div>
+            `,
+        	data() {
+        		return {
+        			name: '',
+                    message: ''
+                }
+            },
+            methods: {
+        		shoutMyName() {
+        			if(this.name) {
+                       this.message = 'Masz na imię: ' + this.name
+                    }
+                    this.name = '';
+                }
+            }
+        }
+    </script>
+    <script>
+	    // Miejsce na komponent Footer:
+	    const TheFooter = {
+            template: `
+                <footer style="text-align: center">
+                    Copyright &copy; {{year}} Altkom Akademia
+                </footer>
+		    `,
+		    name: 'TheFooter', // @hint: Vue sam przerobi zapis UpperCase na kebab-case na template do HTML!
+            data() {
+               return {
+               	    year: new Date().getFullYear()
+               }
+            }
+	    }
+    </script>
+    <script>
+        // Instancja Vue
+        const { createApp } = Vue;
+        const app = createApp({
+          // Rejestrowanie komponentów, które będą używane
+          components: {
+	          TheHeader: TheHeader,
+	          TheFooter, // Nowy zapis z ES6 (jeśli pole w obiekcie i nazwa zmiennej mają taką samą nazwę
+	          NameShouter
+          },
+        })
+        app.mount('#app')
+    </script>
+    <style>
+        body {
+            font-family: Calibri, sans-serif;
+            font-size: 18px;
+        }
+        .page section {
+            margin: 1em;
+            padding: 3em;
+            min-height: 200px;
+            background-color: #cccccc;
+        }
+    </style>
+</body>
+</html>

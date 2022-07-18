@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Watchers</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <!--
+        #Przykład B-107:
+        Czasem samo zastosowanie two-way data binding - nie wystarczy. Ponieważ możemy potrzebować uaktualnienia
+        jednej czy kilku danych bazując na nowej wartości innego pola (zaktualizowanego) np. przez użytkownika.
+
+        #cel:
+        Zrozumienie koncepcji tzw. "watchers" pozwalających nam zareagować na zmianę jednej z wartości zdefiniowanej
+        w "data" lub "computed" property
+    -->
+      <div id="app"></div>
+      <script>
+	      const RIGHT_ANSWER = 40;
+          const GuessMyAge = {
+          	// @hint: modyfikator .number upewnia się żeby answer było numeryczne!
+            template: `
+                <section>
+                    <h3>Zgadnij ile mam lat ?</h3>
+                    <hr>
+                    <input type="number" v-model.number="answer">
+                    <div>{{text}}</div>
+                </section>
+            `,
+            data() {
+              return {
+                answer: 0,
+                text: 'Trochę za mało...'
+              }
+            },
+            watch: {
+              answer(newValue /*, oldValue*/) {
+                  if(newValue === RIGHT_ANSWER) {
+                      this.text = 'Brawo! Prawidłowa odpowiedź!'
+                  } else if (newValue > RIGHT_ANSWER){
+                      this.text = 'Oj... za dużo !'
+                  } else {
+                      this.text = 'Trochę za mało...'
+                  }
+              }
+            }
+          }
+
+        const { createApp } = Vue;
+        const app = createApp({
+            components: {
+	            GuessMyAge
+            },
+            template: `
+                <main>
+                    <GuessMyAge />
+                </main>
+            `
+          })
+        app.mount('#app')
+      </script>
+</body>
+</html>

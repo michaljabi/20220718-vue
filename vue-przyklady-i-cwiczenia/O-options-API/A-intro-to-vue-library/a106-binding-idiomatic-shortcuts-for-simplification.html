@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Skrótowe formy zapisu data bind'ingu</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <!--
+        #Przykład: A-106
+        v-bind oraz v-on można zapisać krócej!
+
+        #cel:
+        Utrwalenie / poznanie i porównanie skrótowych form zapisu dla data-binding
+    -->
+    <main id="app">
+        <h1>Skrótowe formy dla data binding</h1>
+        <div class="box-wrapper">
+            <div class="box-wrapper__box">
+                <h2 v-bind:title="firstHeader">{{firstHeader}}</h2>
+                <button v-on:click="handleFirstButtonClick('Goodbye Vue')"> Zmień tekst nagłówka </button>
+            </div>
+            <div class="box-wrapper__box">
+                <h2 :title="secondHeader">{{secondHeader}}</h2>
+                <button @click="handleSecondButtonClick('Goodbye John')"> Zmień tekst nagłówka </button>
+            </div>
+        </div>
+    </main>
+    <script>
+        const { createApp } = Vue;
+        const app = createApp({
+          data() {
+          	return {
+              firstHeader: 'Hello Vue',
+              secondHeader: 'Hello John'
+            }
+          },
+          methods: {
+          	handleFirstButtonClick(value = ''){
+              this.firstHeader = value;
+            },
+            handleSecondButtonClick(value = ''){
+              this.secondHeader = value;
+            }
+          }
+        });
+        app.mount('#app');
+    </script>
+    <style>
+        body {
+            font-family: Calibri, sans-serif;
+            font-size: 18px;
+            overflow: hidden;
+        }
+        .box-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 50vh;
+        }
+        .box-wrapper__box {
+            width: 300px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            padding: 30px;
+            box-sizing: content-box;
+        }
+    </style>
+</body>
+</html>

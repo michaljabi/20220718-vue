@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Watchers</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <!--
+        #Przykład B-07:
+        Czasem samo zastosowanie two-way data binding nie wystarczy. Ponieważ możemy potrzebować uaktualnienia
+        jednej czy kilku danych bazując na nowej wartości innego pola (zaktualizowanego) np. przez użytkownika.
+
+        #cel:
+        Zrozumienie koncepcji tzw. watchers pozwalających nam zareagować na zmianę jednej z wartości zdefiniowanej
+        jako ref(), reactive() lub computed() property
+    -->
+      <div id="app"></div>
+      <script>
+	      const { ref, watch } = Vue;
+	      const RIGHT_ANSWER = 30;
+          const GuessMyAge = {
+          	// @hint: modyfikator .number upewnia się, żeby answer było numeryczne!
+            template: `
+                <section>
+                    <h3>Zgadnij ile mam lat ?</h3>
+                    <hr>
+                    <input type="number" v-model.number="answer">
+                    <div>{{text}}</div>
+                </section>
+            `,
+            setup() {
+			    const answer = ref(0);
+			    const text = ref('Trochę za mało...');
+	            watch(answer, (newAnswer/*, prevAnswer*/) => {
+                    if(newAnswer === RIGHT_ANSWER) {
+                        text.value = 'Brawo! Prawidłowa odpowiedź!'
+                    } else if (newAnswer > RIGHT_ANSWER){
+                        text.value = 'Oj... za dużo !'
+                    } else {
+                        text.value = 'Trochę za mało...'
+                    }
+	            })
+                return {answer, text}
+            }
+          }
+
+        const { createApp } = Vue;
+        const app = createApp({
+            components: {
+	            GuessMyAge
+            },
+            template: `
+                <main>
+                    <GuessMyAge />
+                </main>
+            `
+          })
+        app.mount('#app')
+      </script>
+</body>
+</html>

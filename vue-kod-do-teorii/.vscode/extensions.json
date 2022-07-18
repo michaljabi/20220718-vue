@@ -1,0 +1,8 @@
+{
+  "recommendations": [
+    "vue.volar",
+    "dbaeumer.vscode-eslint",
+    "mikestead.dotenv",
+    "vscode-icons-team.vscode-icons"
+  ]
+}

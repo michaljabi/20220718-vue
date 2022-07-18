@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Używanie dyrektyw w templates</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <style>
+        body {
+            font-family: Calibri, Verdana, sans-serif;
+        }
+        main {
+            display: flex;
+            justify-content: center;
+        }
+        section {
+            width: 500px;
+            margin: 60px 5px;
+        }
+        header {
+            background-color: #ec8d37;
+            padding: 2px 6px;
+        }
+        .vue header {
+            background-color: #55b780;
+        }
+        .vue .container {
+            border-color: #55b780;
+        }
+        .container {
+            border: 1px dashed #ec8d37;
+            padding: 15px 10px;
+        }
+        .lights {
+            padding: 5px;
+            text-align: center;
+        }
+        .btn {
+            border: 1px solid black;
+            border-radius: 5px;
+            padding: 8px;
+            cursor: pointer;
+        }
+        .btn.btn-primary {
+            background-color: #55b780;
+        }
+    </style>
+</head>
+<body>
+    <!--
+        #Przykład: A-03
+        Próba powtórzenia funkcjonalności obsługiwanej przez czysty JavaScript (Vanilla)
+        z poprzedniego przykładu. Tym razem przy użyciu Vue.js
+
+        #cel:
+        Poznanie dyrektyw manipulujących zawartością widoku.
+        Kontynuacja pierwszych kroków z bindowaniem danych.
+      -->
+    <main id="app">
+        <!--
+
+        OLD PURE HTML+JS Version:
+
+        <section>
+            <header>
+                <h1>Wyłącznik / Włącznik - Vanilla JS</h1>
+            </header>
+            <div class="container">
+                <div class="lights"> 💡 - 💡 - 💡 - 💡 </div>
+                <button class="btn btn-primary switch" onclick="toggleTheLight()"> Włącznik światła </button>
+            </div>
+            <script>
+                const $lights = document.querySelector('.lights');
+                function toggleTheLight() {
+                    const isDisplayNone = $lights.style.display === 'none';
+                    $lights.style.display = isDisplayNone ? 'block' : 'none';
+                }
+            </script>
+        </section>
+        -->
+        <section class="vue">
+            <header>
+                <h1>Wyłącznik / Włącznik — wersja Vue</h1>
+            </header>
+            <div class="container">
+                <div class="lights" v-if="lightsVisible"> 💡 - 💡 - 💡 - 💡 </div>
+                <button class="btn btn-primary switch" v-on:click="toggleTheLight"> Włącznik światła </button>
+
+                <!-- @hint: można również zapisać tak (Angular style) -->
+                <!-- <button class="btn btn-primary switch" v-on:click="toggleTheLight()"> Włącznik światła </button> -->
+
+                <!-- @hint: można również zapisać tak wyłapując event natywny (również podobnie do Angular) -->
+                <!-- <button class="btn btn-primary switch" v-on:click="toggleTheLight($event)"> Włącznik światła </button> -->
+            </div>
+            <div class="container">
+                Wartość w lightsVisible: {{lightsVisible}}
+            </div>
+            <div class="container">
+                Zwróć uwagę na dyrektywy: <strong>v-if</strong> oraz <strong>v-on:click</strong>
+            </div>
+        </section>
+    </main>
+    <script>
+        const { createApp, ref } = Vue;
+	    const app = createApp({
+		    setup() {
+				// Specjalne oznaczenie, że coś jest REAKTYWNE (ref)
+                // Czyli "stan" który zmienia się w czasie.
+				const lightsVisible = ref(true);
+		    	return {
+                    lightsVisible, // Nowy zapis z ES6+ (jeśli pole w obiekcie i nazwa zmiennej mają taką samą nazwę
+                    toggleTheLight() {
+                        // Po stronie logiki musimy aktualizować ref, przy użyciu .value [!!!]
+                        lightsVisible.value = !lightsVisible.value;
+                    }
+                    /*
+                       @hint: to, jak jest zapisane toggleTheLight(), może Ci się wydawać dziwne, ponieważ jest to syntax z ES6+
+
+                       Jest to ten sam zapis co stare dobre (przed 2015):
+                       {
+                           toggleTheLight: function() {
+                              //...tutaj logika...
+                           }
+                       }
+                    */
+                }
+		    }
+	    })
+        app.mount('#app');
+    </script>
+</body>
+</html>

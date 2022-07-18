@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Czym jest data binding?</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <!--
+        #Przykład: A-04
+        Zobacz i poćwicz bindowanie danych w Vue.
+
+        #1 Zadanie:
+        Używając dyrektywy v-bind:, połącz pozostałą wartość zwracaną przez obiekt w setup() - altText z widokiem.
+        Pod atrybutem 'alt' dla obrazka.
+
+        #2 Zadanie:
+        Używając dyrektywy v-on:, dopisz nową funkcjonalność:
+            2.1 Po najechaniu na .box w którym jest <header> (mouseenter) ma się on pojawić
+            2.2 Po zjechaniu (mouseleave) z .box header ma zniknąć
+
+        #cel:
+        Ćwiczenie z zakresu bindowania danych. Zauważenie istoty 2-way data binding w Vue.
+        Zauważenie 2 rodzajów bindowania: input (v-bind) oraz output (v-on)
+    -->
+    <main id="app">
+        <div class="box">
+            <h1 v-bind:title="myTitle"> Najedź na mnie </h1>
+            <h6 title="myTitle">I porwónaj z klasykiem</h6>
+            <img src="/nonexistingimage.png" alt="Podmień mnie na tekst alternatywny">
+        </div>
+        <div class="box" >
+            <header v-if="isHeaderVisible"> Sekretna wiadomość 🏴‍☠ </header>
+        </div>
+    </main>
+    <script>
+	    const { createApp, ref } = Vue;
+		const app = createApp({
+          setup() {
+            const isHeaderVisible = ref(false);
+          	return {
+              myTitle: 'To jest przykładowy tytuł zbindowany z widokiem',
+              altText: 'Fajny obrazek',
+              isHeaderVisible
+            }
+          }
+        })
+        app.mount('#app')
+    </script>
+    <style>
+        body {
+            font-family: Calibri, sans-serif;
+            font-size: 15px;
+            overflow: hidden;
+        }
+        #app {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+
+        }
+        .box {
+            width: 300px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            padding: 30px;
+            box-sizing: content-box;
+        }
+    </style>
+</body>
+</html>

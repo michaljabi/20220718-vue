@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Komponent to po prostu zwykły obiekt JS z konkretnymi polami</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <!--
+        #Przykład B-02:
+        Inny, prostszy sposób definiowania komponentów.
+        Komponenty specjalnie zostały "oddzielone" tagami <script> aby zobrazować, iż docelowo będą to osobne pliki.
+
+        #cel:
+        Poznanie prostego sposobu przydzielania komponentów do instancji Vue,
+        który szerzej będziemy stosować w Node.js.
+        Jest to przygotowanie do stosowania plików .vue
+        (które poznamy po użyciu scaffold'u: npm init vue@latest)
+    -->
+    <main id="app">
+        <header>
+            <h1> 📦📦📦 Komponenty to po prostu zwykłe obiekty JS....</h1>
+            <div>
+                Ten przykład pomoże Ci zrozumieć, że możemy odseparować zapis komponentów od Vue <br>
+                Wystarczy zadeklarować komponenty jako zwykłe obiekty — z odpowiednimi elementami, które już znasz: <br>
+                <code> setup() {} , ref() </code>. Dochodzą jeszcze wartości <code>name, template</code> <br>
+                Wykorzystywany tutaj zapis będzie towarzyszył nam najczęściej - ponieważ to podobnej składni będziemy używać w Node.js. <br>
+                Warto więc to przyswoić i zauważyć późniejszą analogię.
+            </div>
+        </header>
+
+        <!-- Poniżej następuje składanie naszych "klocków" -->
+        <div class="page">
+            <the-header></the-header>
+            <section>
+                <h2> Strona </h2>
+                <name-shouter> </name-shouter>
+                <name-shouter> </name-shouter>
+            </section>
+            <the-footer> </the-footer>
+        </div>
+    </main>
+    <script>
+	    const { ref } = Vue;
+        // Miejsce na komponent Header:
+	    const TheHeader = {
+		    template: `
+                <header>
+                    <h1>Hello Header</h1>
+                    <hr>
+                </header>
+		    `
+	    }
+    </script>
+    <script>
+        // Komponent NameShouter
+        const NameShouter = {
+	        template: `
+                <div>
+                    Podaj imię: <input v-model="name"> <button @click="shoutMyName()"> Krzyknij! </button>
+                    <p v-if="message">
+                        {{message}}
+                    </p>
+                </div>
+            `,
+        	setup() {
+                const name = ref('');
+                const message = ref('');
+        		return {
+        			name,
+                    message,
+                    shoutMyName() {
+                        if(name.value) {
+                            message.value = 'Masz na imię: ' + name.value
+                        }
+                        name.value = '';
+                    }
+                }
+            }
+        }
+    </script>
+    <script>
+	    // Miejsce na komponent Footer:
+	    const TheFooter = {
+            template: `
+                <footer style="text-align: center">
+                    Copyright &copy; {{year}} Altkom Akademia
+                </footer>
+		    `,
+		    name: 'TheFooter', // @hint: Vue sam przerobi zapis UpperCase na kebab-case na template do HTML!
+            setup() {
+               return {
+               	    year: new Date().getFullYear()
+               }
+            }
+	    }
+    </script>
+    <script>
+        // Instancja Vue
+        const { createApp } = Vue;
+        const app = createApp({
+            // Rejestrowanie komponentów, które będą używane
+            components: {
+                TheHeader,
+                TheFooter,
+                NameShouter
+                // Tutaj zastosowano skrócony syntax (nowość po 2015 w JS):
+                // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#new_notations_in_ecmascript_2015
+            },
+        })
+        app.mount('#app')
+    </script>
+    <style>
+        body {
+            font-family: Calibri, sans-serif;
+            font-size: 18px;
+        }
+        .page section {
+            margin: 1em;
+            padding: 3em;
+            min-height: 200px;
+            background-color: #cccccc;
+        }
+    </style>
+</body>
+</html>

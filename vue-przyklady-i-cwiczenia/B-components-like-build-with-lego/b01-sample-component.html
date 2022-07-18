@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Prosty komponent</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <!--
+        #Przykład: B-01
+        Komponent w Vue i sposób jego osadzania na widoku
+
+        #cel:
+        Poznanie komponentów - kluczowej "formy" budowania UI we współczesnych frameworkach JS. Korzystającej z zasady kompozycji.
+    -->
+    <main id="app">
+        <header>
+            <h1> 📦 Komponenty</h1>
+            <div>
+                Pozwalają realizować tzw. "Separation of Concerns" w zupełnie nowym wydaniu. Nie jest to "odkrycie" w Vue. <br>
+                Wszystkie "Nowoczesne" frameworki korzystają z takiego (komponentowego) podejścia. <br>
+                W tym przypadku zwróć uwagę na kilka rzeczy:
+                <ol>
+                    <li>Logika realizowana przez buttona jest odseparowana</li>
+                    <li>Możesz re-używać kod napisany do buttona - wystarczy wkleić &lt;button-counter/&gt; w Template</li>
+                    <li>To nie Ty przejmujesz się utworzeniem nowych instancji oraz usuwaniem ich z widoku - robi to <strong>Vue!</strong></li>
+                    <li>Komponenty mogą komunikować się między sobą - o tym później...</li>
+                    <li>Posiadasz dostęp do tzw. cyklu życia komponentu - o tym później...</li>
+                </ol>
+            </div>
+        </header>
+
+        <div class="box-wrapper">
+            <div class="box-wrapper__box">
+                <h2>Komponent nr 1:</h2>
+                <button-counter> </button-counter>
+            </div>
+            <div class="box-wrapper__box">
+                <h2>2-ga instancja komponentu:</h2>
+                <button-counter> </button-counter>
+            </div>
+            <div class="box-wrapper__box">
+                <h2>3-cia instancja komponentu:</h2>
+                <button-counter> </button-counter>
+            </div>
+        </div>
+    </main>
+    <script>
+	    /*
+        * Poniżej zadeklarowany jest komponent,
+        * Ważne: musimy go zadeklarować w ten sposób PRZED(!) zamontowaniem instancji app (createApp())
+        *
+        * Zauważ, że będzie on posiadał podobne pola do instancji Vue.
+        * Działają one jednak tylko w skali "mikro" tj. tylko w obrębie tego komponentu
+        * */
+        const { createApp, ref } = Vue;
+        const app = createApp({})
+
+        app.component('button-counter', {
+	        setup() {
+		        return {
+                    // Stan lokalny dla jednej instancji komponentu, instancji będzie tyle ile razy w innym komponencie,
+                    // umieścimy ten komponent na template rodzica.
+                    count: ref(0)
+                }
+	        },
+            /* Komponent zawsze będzie zawierał swój własny widok — określany jako "template" */
+		    template: '<button class="clicker" @click="count++">Kliknąłeś mnie {{ count }} razy.</button>'
+	    })
+
+        app.mount('#app')
+    </script>
+    <style>
+        body {
+            font-family: Calibri, sans-serif;
+            font-size: 18px;
+        }
+        .box-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            height: 50vh;
+        }
+        .box-wrapper__box {
+            width: 300px;
+            height: 200px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            padding: 30px;
+            box-sizing: content-box;
+        }
+        .clicker {
+            line-height: 3em;
+            width: 100%;
+            font-weight: bold;
+        }
+    </style>
+</body>
+</html>

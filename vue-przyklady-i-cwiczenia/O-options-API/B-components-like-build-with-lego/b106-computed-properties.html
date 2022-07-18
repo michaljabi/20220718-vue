@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Wyliczane właściwości</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <!--
+        #Przykład B-106:
+        W Vue.js mamy możliwość "wyliczenia" wartości na podstawie np. kilku innych wartości, lub
+        na podstawie bardziej skomplikowanej logiki. Gdzie jeden ze składników może należeć do "data" i zmienić się w czasie.
+        Vue - zachowuje się wtedy - dalej reaktywnie, przeliczając aktualną wartość "computed property"
+        Zobacz poniższy przykład.
+
+        #cel:
+        Poznanie metody na obliczanie / aktualizacje wartości pola w komponencie
+        na podstawie zmian i aktualizacji innych wartości pól składowych.
+    -->
+    <div id="app"></div>
+    <script>
+
+      const WeatherSwitch = {
+          template: `
+            <div>
+               <p> {{actualWeather}} </p>
+               <button @click="timeOfTheDay = 'wczoraj'">Zmień porę dnia</button>
+            </div>
+          `,
+	      data() {
+             return {
+             	timeOfTheDay: 'dzisiaj',
+		        weather: 'padało'
+             }
+	      },
+	      computed: {
+		      actualWeather() {
+			      return this.timeOfTheDay + ' ' + this.weather;
+		      }
+	      }
+      }
+
+      const { createApp } = Vue;
+      const app = createApp({
+        components: {
+	        WeatherSwitch
+        },
+        template: `
+            <main>
+                <WeatherSwitch />
+            </main>
+        `
+      })
+      app.mount('#app')
+    </script>
+</body>
+</html>
