@@ -36,6 +36,9 @@
                 <h2> Strona </h2>
                 <name-shouter> </name-shouter>
                 <name-shouter> </name-shouter>
+                <name-shouter> </name-shouter>
+                <name-shouter> </name-shouter>
+                <name-shouter> </name-shouter>
             </section>
             <the-footer> </the-footer>
         </div>
@@ -54,6 +57,10 @@
     </script>
     <script>
         // Komponent NameShouter
+        // Stan danych współdzielony przez N instancji komponentu name-shouter
+        const name = ref('');
+        const message = ref('');
+
         const NameShouter = {
 	        template: `
                 <div>
@@ -64,8 +71,6 @@
                 </div>
             `,
         	setup() {
-                const name = ref('');
-                const message = ref('');
         		return {
         			name,
                     message,
@@ -101,7 +106,7 @@
         const app = createApp({
             // Rejestrowanie komponentów, które będą używane
             components: {
-                TheHeader,
+                TheHeader: TheHeader,
                 TheFooter,
                 NameShouter
                 // Tutaj zastosowano skrócony syntax (nowość po 2015 w JS):
