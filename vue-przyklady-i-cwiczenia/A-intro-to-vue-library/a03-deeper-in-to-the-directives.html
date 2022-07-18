@@ -84,6 +84,10 @@
             <div class="container">
                 <div class="lights" v-if="lightsVisible"> 💡 - 💡 - 💡 - 💡 </div>
                 <button class="btn btn-primary switch" v-on:click="toggleTheLight"> Włącznik światła </button>
+                <div v-on:mouseenter="toggleTheLight" > [ --- ] </div>
+                <div @mouseenter="toggleTheLight" > [ -@- ] </div>
+
+                <button @click="handleBtnNativeClick($event)">Native Event</button>
 
                 <!-- @hint: można również zapisać tak (Angular style) -->
                 <!-- <button class="btn btn-primary switch" v-on:click="toggleTheLight()"> Włącznik światła </button> -->
@@ -103,25 +107,15 @@
         const { createApp, ref } = Vue;
 	    const app = createApp({
 		    setup() {
-				// Specjalne oznaczenie, że coś jest REAKTYWNE (ref)
-                // Czyli "stan" który zmienia się w czasie.
-				const lightsVisible = ref(true);
+				const lightsVisible = ref(false);
 		    	return {
-                    lightsVisible, // Nowy zapis z ES6+ (jeśli pole w obiekcie i nazwa zmiennej mają taką samą nazwę
+                    lightsVisible, 
                     toggleTheLight() {
-                        // Po stronie logiki musimy aktualizować ref, przy użyciu .value [!!!]
                         lightsVisible.value = !lightsVisible.value;
+                    },
+                    handleBtnNativeClick(ev) {
+                        console.log('Hello Event', ev)
                     }
-                    /*
-                       @hint: to, jak jest zapisane toggleTheLight(), może Ci się wydawać dziwne, ponieważ jest to syntax z ES6+
-
-                       Jest to ten sam zapis co stare dobre (przed 2015):
-                       {
-                           toggleTheLight: function() {
-                              //...tutaj logika...
-                           }
-                       }
-                    */
                 }
 		    }
 	    })
