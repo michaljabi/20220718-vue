@@ -21,6 +21,14 @@ const superUser = {
 }
 
 
+
+{
+	const firstName = superUser.firstName;
+	const lastName = superUser.lastName;
+	const returnSomething = superUser.returnSomething;
+}
+
+
 // Destrukturyzacja:
 const { firstName, lastName, returnSomething } = superUser;
 
