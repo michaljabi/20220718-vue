@@ -49,6 +49,9 @@
         <ul class="list-group">
             <li class="list-group-item" v-for="item in shoppingList">{{ item }}</li>
         </ul>
+        <div class="alert alert-warning" v-if="shoppingList.length === 0">
+            Brak elementów na liście, czy chcesz dodać coś nowego?
+        </div>
     </main>
     <script>
 	    // @hint: wykorzystaj przygotowane do tego zdania pola w instancji Vue:
