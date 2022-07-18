@@ -46,22 +46,42 @@
 <main id="app">
     <header>
         <h1>{{ 2 + 90 + 2 * 2 + '!' }}</h1>
-        <div> {{ text }} {{ numeric }} </div>
+        <div> {{ textualValue }} {{ numeric }} </div>
     </header>
+    <div>
+        {{luckyNumber}}
+    </div>
+    <div>
+        {{ user }}
+    </div>
 </main>
 <div>
     To nie jest aktualiziowane i zarządzane przez Vue {{ text }}
 </div>
 <!-- lub na popularnych (div'ach): <div id="cokolwiek">...</div> -->
 <script>
+    // Wstęp do reaktywności:
+    const text = Vue.ref('to działa !');
+    const luckyNumber = Vue.ref(123);
+
 	const app = Vue.createApp({
         setup() {
+           const user = Vue.ref({ name: 'Michał', hello() {} });
+
            return {
-             text: 'Hello world',
-             numeric: 20 + 300
+             textualValue: text,
+             numeric: 20 + 300,
+             luckyNumber: luckyNumber,
+             user // Object property shorthand notacja zastosowana
            }      
         }
     })
+
+    setTimeout(() => {
+        text.value = 'TO JEST ZMIANA';
+        luckyNumber.value = 890;
+        console.log(text);
+    }, 3000)
 
     app.mount('#app')
 </script>
