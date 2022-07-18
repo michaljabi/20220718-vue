@@ -89,12 +89,13 @@
 	    const TheFooter = {
             template: `
                 <footer style="text-align: center">
-                    Copyright &copy; {{year}} Altkom Akademia
+                    Copyright &copy; {{year}} {{name}}
                 </footer>
 		    `,
 		    name: 'TheFooter', // @hint: Vue sam przerobi zapis UpperCase na kebab-case na template do HTML!
             setup() {
                return {
+                    name,
                	    year: new Date().getFullYear()
                }
             }
