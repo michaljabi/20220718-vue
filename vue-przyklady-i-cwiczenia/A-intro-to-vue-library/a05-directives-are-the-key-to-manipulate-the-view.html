@@ -36,14 +36,19 @@
             <h2><code>v-for</code> | Iterowanie po elementach kolekcji (tablicy) </h2>
             <!-- https://vuejs.org/api/built-in-directives.html#v-for -->
             <ol>
-                <li v-for="item in shoppingList">
-                    <strong>{{ item.name }}</strong> - {{item.amount+item.unit}}
+                <li v-for="(item, index) in shoppingList"  v-bind:style="{ backgroundColor: index % 2 === 0 ? 'red' : '' }">
+                    <strong v-bind:title="item.name">{{ item.name }}</strong> - {{item.amount+item.unit}}
                 </li>
             </ol>
             <ul>
-                <li v-for="(item, index) in shoppingList">
-                    <strong>{{ item.name }}</strong> - {{item.amount+item.unit}} | {{index}}
-                </li>
+                <template v-for="(item, index) in shoppingList" >
+                    <li 
+                        v-if="index % 2"
+                       
+                    >
+                        <strong  @click="shoppingList[index].amount++" >{{ item.name }}</strong> - {{item.amount+item.unit}} | {{index}}
+                    </li>
+                </template>
             </ul>
         </section>
         <section>
@@ -102,7 +107,7 @@
         </section>
     </main>
     <script>
-        const {createApp, ref} = Vue;
+        const {createApp, ref, reactive} = Vue;
         const app = createApp({
           setup() {
           	return {
@@ -111,11 +116,11 @@
               myText: ref('Mój tekst'),
               // shoppingList, nie zmienia się nigdy (dlatego nieopakowane zostało w ref() ani w reactive())
               // https://vuejs.org/api/reactivity-core.html#reactive
-              shoppingList: [
+              shoppingList: reactive([
                   {name: 'Pomidory', amount: 4, unit: 'kg.'},
                   {name: 'Żarówki', amount: 2, unit: 'szt.'},
                   {name: 'Klawiatura', amount: 1, unit: 'szt.'},
-              ],
+              ]),
               // Metoda:
               shout(text) {
                   alert(text);
