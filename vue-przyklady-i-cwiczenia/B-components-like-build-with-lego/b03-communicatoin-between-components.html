@@ -59,8 +59,8 @@
                 <pre>    UWAGA: Nasłuchujemy eventu tylko w komponencie powyżej! (patrz: @shout)
                 </pre>
                 <div>pamiętaj, że nie musimy przekazywać statycznych wartości, możemy coś zbindować:</div>
-                <my-title :super-title="applicationTitle"></my-title>
-                <my-title v-bind:super-title="applicationTitle"></my-title>
+                <my-title :super-title="applicationTitle" />
+                <my-title v-bind:super-title="applicationTitle" />
                 <div>Pamiętaj, że bindowanie jest jak "otwarcie świata" JS po prawej stronie (w środku " ") </div>
                 <my-title :super-title=" 1 + 1 + '100' "></my-title>
             </div>
