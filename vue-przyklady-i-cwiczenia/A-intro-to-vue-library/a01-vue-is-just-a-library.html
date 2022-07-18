@@ -47,6 +47,8 @@
     <header>
         <h1>{{ 2 + 90 + 2 * 2 + '!' }}</h1>
         <div> {{ textualValue }} {{ numeric }} </div>
+        <div> {{ undefined }} </div>
+        <div> {{ null }} </div>
     </header>
     <div>
         {{luckyNumber}}
@@ -54,6 +56,10 @@
     <div>
         {{ user }}
     </div>
+    <ul>
+        <li>{{user.name}}</li>
+        <li>{{user.lastName}}</li>
+    </ul>
 </main>
 <div>
     To nie jest aktualiziowane i zarządzane przez Vue {{ text }}
@@ -63,10 +69,11 @@
     // Wstęp do reaktywności:
     const text = Vue.ref('to działa !');
     const luckyNumber = Vue.ref(123);
+    const user = Vue.ref({ name: 'Michał', hello() {} });
 
 	const app = Vue.createApp({
         setup() {
-           const user = Vue.ref({ name: 'Michał', hello() {} });
+           
 
            return {
              textualValue: text,
@@ -80,6 +87,7 @@
     setTimeout(() => {
         text.value = 'TO JEST ZMIANA';
         luckyNumber.value = 890;
+        user.value = { name: 'Monika', lastName: 'Nowak'};
         console.log(text);
     }, 3000)
 
@@ -100,15 +108,15 @@
 
 
     // Po 2015, kompaktowy sposób:
-    const user = {
+    const user2 = {
         name: 'Michał',
         // method shorthand syntax:
         shoutMyName() {
             console.log("I'm", this.name)
         }
     }
-    console.log(user)
-    user.shoutMyName();
+    console.log(user2)
+    user2.shoutMyName();
 </script>
 
 </body>
