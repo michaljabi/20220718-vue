@@ -70,6 +70,8 @@
     const text = Vue.ref('to działa !');
     const luckyNumber = Vue.ref(123);
     const user = Vue.ref({ name: 'Michał', hello() {} });
+    // zamiast ref do obiektów będziemy stosować .reactive
+    // const user = Vue.reactive({ name: 'Michał', hello() {} });
 
 	const app = Vue.createApp({
         setup() {
