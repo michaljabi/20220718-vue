@@ -27,7 +27,7 @@
         <div class="box">
             <h1 v-bind:title="myTitle"> Najedź na mnie </h1>
             <h6 title="myTitle">I porwónaj z klasykiem</h6>
-            <img src="/nonexistingimage.png" alt="Podmień mnie na tekst alternatywny">
+            <img src="/nonexistingimage.png" v-bind:alt="altText">
         </div>
         <div class="box" >
             <header v-if="isHeaderVisible"> Sekretna wiadomość 🏴‍☠ </header>
