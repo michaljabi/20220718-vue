@@ -40,28 +40,30 @@
                 <div class="input-group-prepend" >
                     <label for="item" class="input-group-text">Nowy element:</label>
                 </div>
-                <input id="item" class="form-control" type="text">
+                <input v-model="itemName" id="item" class="form-control" type="text">
                 <div class="input-group-append">
-                    <button class="btn btn-primary" type="button">Dodaj do listy</button>
+                    <button @click="handleAddItemToList()" class="btn btn-primary" type="button">Dodaj do listy</button>
                 </div>
             </div>
         </section>
         <ul class="list-group">
-            <li class="list-group-item"> Przykładowy element na liście</li>
+            <li class="list-group-item" v-for="item in shoppingList">{{ item }}</li>
         </ul>
     </main>
     <script>
 	    // @hint: wykorzystaj przygotowane do tego zdania pola w instancji Vue:
-	    const { createApp, ref } = Vue;
+	    const { createApp, ref, reactive } = Vue;
         const app = createApp({
 		    setup() {
                 const itemName = ref('');
-                const shoppingList = ref([]);
+                const shoppingList = reactive([]);
 		    	return {
                     itemName,
                     shoppingList,
                     handleAddItemToList() {
-                      console.log('Dodaje do listy', itemName)
+                      console.log('Dodaje do listy', itemName.value)
+                      shoppingList.push(itemName.value)
+                      itemName.value = '';
                       // podpowiedź ?
                       // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/push
                     }
