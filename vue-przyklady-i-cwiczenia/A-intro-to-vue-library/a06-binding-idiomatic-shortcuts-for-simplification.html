@@ -17,17 +17,17 @@
         <h1>Skrótowe formy dla data binding</h1>
         <div class="box-wrapper">
             <div class="box-wrapper__box">
-                <h2 v-bind:title="headers.first">{{headers.first}}</h2>
+                <h2 style="color: rgb(151, 188, 151)" v-bind:title="headers.first">{{headers.first}}</h2>
                 <button v-on:click="handleFirstButtonClick('Goodbye Vue')"> Zmień tekst nagłówka </button>
             </div>
             <div class="box-wrapper__box">
-                <h2 :title="headers.second">{{headers.second}}</h2>
+                <h2 :style="{color: textColor}" :title="headers.second">{{headers.second}}</h2>
                 <button @click="handleSecondButtonClick('Goodbye John')"> Zmień tekst nagłówka </button>
             </div>
         </div>
     </main>
     <script>
-        const { createApp, reactive } = Vue;
+        const { createApp, reactive, ref } = Vue;
         const app = createApp({
           setup() {
             // https://vuejs.org/api/reactivity-core.html#reactive
@@ -35,14 +35,17 @@
               first: 'Hello Vue',
               second: 'Hello John'
             })
+            const textColor = ref('red');
             // Opakowanie reaktywnego stanu danych jako obiekt headers = { first: '', second: '' }
           	return {
                 headers,
-                handleFirstButtonClick(value = ''){
-                  headers.first = value;
+                textColor,
+                handleFirstButtonClick(something = ''){
+                  headers.first = something;
                 },
-                handleSecondButtonClick(value = ''){
-                  headers.second = value;
+                handleSecondButtonClick(something = ''){
+                  headers.second = something;
+                  textColor.value = 'blue'
                 }
             }
           }
