@@ -45,39 +45,51 @@
   -->
 <main id="app">
     <header>
-        <h1>{{ title }}</h1>
-        <h5>{{ subtitle }}</h5>
+        <h1>{{ 2 + 90 + 2 * 2 + '!' }}</h1>
+        <div> {{ text }} {{ numeric }} </div>
     </header>
-    <div class="container">{{ someContent }}</div>
-    <div class="container">{{ moreExplanation }}</div>
 </main>
+<div>
+    To nie jest aktualiziowane i zarządzane przez Vue {{ text }}
+</div>
 <!-- lub na popularnych (div'ach): <div id="cokolwiek">...</div> -->
 <script>
-	const createApp = Vue.createApp
-	const app = createApp( {
-		// @hint: zwróć uwagę, że to co zwraca .setup() - to po prostu obiekt JS (klucze - wartości)
-		setup() {
-			return {
-                title: 'To jest prosta strona',
-                subtitle: 'wykorzystująca Vue.js',
-                // @hint: znak ` [backtick] pozwala (min.in.) na umieszczanie  multiline string'a
-                someContent: `
-                    Z punktu widzenia klasycznego HTMLa.
-                    Zapisy powyżej w {{}}.
-                    Nie mają sensu!!! Jednak pod spodem wszystkim
-                    zarządzają JavaScript'y
-                `,
-				moreExplanation: `
-                    To właśnie jedna z cech SPA z frameworkami JavaScript'owymi.
-                    Pewnie znasz technologie w których widoki HTML były generowane po stronie back-endu.
-                    Np. .NET (.aspx), Java EE (.jsp), PHP (.php) etc. Tutaj widoki dynamicznie będą generowane,
-                    przez JavaScript - dzięki użyciu DOM API
-                `
-            }
+	const app = Vue.createApp({
+        setup() {
+           return {
+             text: 'Hello world',
+             numeric: 20 + 300
+           }      
         }
-	} )
+    })
 
-    app.mount( '#app' )
+    app.mount('#app')
 </script>
+
+<script>
+    // Przypomnienie z JS:
+    const obj = {
+        name: 'Michał',
+        // method:
+        shoutMyName: function() {
+            console.log("I'm", this.name)
+        }
+    }
+    console.log(obj)
+    obj.shoutMyName();
+
+
+    // Po 2015, kompaktowy sposób:
+    const user = {
+        name: 'Michał',
+        // method shorthand syntax:
+        shoutMyName() {
+            console.log("I'm", this.name)
+        }
+    }
+    console.log(user)
+    user.shoutMyName();
+</script>
+
 </body>
 </html>
