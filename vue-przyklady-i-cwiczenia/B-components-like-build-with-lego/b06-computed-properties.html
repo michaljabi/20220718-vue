@@ -30,9 +30,11 @@
           `,
           setup() {
             const timeOfTheDay = ref('dzisiaj');
-			const actualWeather = computed(() => `${timeOfTheDay.value} padało`)
+			      // const actualWeather = computed(() => `${timeOfTheDay.value} padało`)
+            const actualWeather = `${timeOfTheDay.value} padało`
+            // actualWeather.value = '!'
             const changeTimeOfTheDay = () => {
-				timeOfTheDay.value = timeOfTheDay.value === 'dzisiaj' ? 'wczoraj' : 'dzisiaj';
+				        timeOfTheDay.value = timeOfTheDay.value === 'dzisiaj' ? 'wczoraj' : 'dzisiaj';
             }
             return { actualWeather, changeTimeOfTheDay }
           }
@@ -50,6 +52,32 @@
         `
       })
       app.mount('#app')
+    </script>
+    <script>
+
+      // Porównując do OOP:
+
+      class User {
+        name = 'Michał';
+        lastName = 'Kowalski';
+
+        notComputedFullname = this.name + ' ' + this.lastName
+
+        // Computed:
+        get fullName() {
+          return this.name + ' ' + this.lastName;
+        }
+      }
+
+      const userMike = new User();
+
+      console.log(userMike.fullName);
+      console.log(userMike.notComputedFullname);
+
+      userMike.name = 'Adrian'
+
+      console.log(userMike.fullName);
+      console.log(userMike.notComputedFullname);
     </script>
 </body>
 </html>
