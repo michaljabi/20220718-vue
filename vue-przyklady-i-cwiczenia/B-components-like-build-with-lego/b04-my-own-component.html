@@ -56,7 +56,8 @@
              required: true 
            }
         },
-        template: `<h2>{{text}}</h2>`
+        emits: ['infoMessage'],
+        template: `<h2>{{text}}</h2> <button @click="$emit('infoMessage', text)"> Wyślij informację </button>`
       }
 
       const app = createApp({
@@ -78,7 +79,7 @@
             <main>
                 <h1>Przykład komunikacji z i do komponentu</h1>
                 <section class="component-wrapper">
-                    <MyOwnPart :text="yourTitle" />
+                    <MyOwnPart :text="yourTitle" @infoMessage="handleGreetings" />
                 </section>
                 <section>
                     Informacja od komponentu: <strong>{{ componentSaid }}</strong>
