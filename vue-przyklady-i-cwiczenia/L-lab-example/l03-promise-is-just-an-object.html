@@ -35,6 +35,30 @@
     </script>
 
     <script>
+        function returnNumber() {
+            return 8
+        }
+
+        console.log(returnNumber())
+
+        async function returnNumberAsync() {
+            return 8
+        }
+
+        console.log(returnNumberAsync())
+
+        function hello(cond) {
+            if(cond) {
+                return 'hello'
+            }
+            return 38
+        }
+
+        // pliki: .d.ts -> podpowiadanie składni od TS Server.
+    </script>
+
+
+    <script>
         const myTodos = axios.get('https://jsonplaceholder.typicode.com/todos')   
         
         myTodos
