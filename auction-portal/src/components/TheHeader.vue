@@ -1,13 +1,13 @@
-<script>
+<script setup>
 import { ref } from 'vue'
+defineProps({
+  text: {
+    type: String,
+    default: 'Hello'
+  }
+})
 
-export default {
-    props: { text: String },
-    setup() {
-       const counter = ref(0); 
-       return { counter } 
-    }
-}
+const counter = ref(0); 
 </script>
 
 <template>
