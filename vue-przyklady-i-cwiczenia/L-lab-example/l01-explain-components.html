@@ -13,15 +13,23 @@
     <script>
         const { createApp } = Vue;
 
+        const EmojiSmile = {
+            template: '😀'
+        }
+
         const SecondaryHeading = {
             props: ['text'],
-            template: '<h2 style="color: red">{{text}}</h2>'
+            components: {
+                EmojiSmile
+            },
+            template: '<h2 style="color: red">{{text}} <EmojiSmile /></h2>'
         }
 
         // """
         const app = createApp({
             components: {
-                SecondaryHeading
+                SecondaryHeading,
+                EmojiSmile
             },
             setup() {
                 return { helloText: 'hello Text !!?' }
@@ -37,6 +45,8 @@
                     ....
                     <h2 style="color: red">Other 4</h2>
                 -->
+                <div :title="helloText">{{helloText}}</div>
+                <EmojiSmile />
                 <SecondaryHeading v-bind:text="helloText" />
                 <SecondaryHeading :text="helloText" />
                 <SecondaryHeading text="Other 3" />
