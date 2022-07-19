@@ -29,12 +29,12 @@
             superTitle: String // @hint: Tutaj określamy tzw props'a (nazwa i przeznaczenie podobne jak np. w React) i jego typ
           },
           // Nie jest to konieczne, natomiast dla porządku określamy, jakie eventy może emitować ten komponent:
-          emits: ['shout'],
+          emits: ['shout2'],
           // Dzięki zastosowaniu $emit() mamy możliwość komunikacji "w górę"
           template: `
             <h2>
                 {{superTitle}}
-                <button @click="$emit('shout', superTitle)"> 🎉 </button>
+                <button @click="$emit('shout2', {name: 'troll', lastName: 'Mountain'})"> 🎉 </button>
             </h2>
           `
       }
@@ -47,15 +47,15 @@
         setup() {
             return {
 		        applicationTitle: 'Moja super aplikacja',
-	            shoutTheTitle(title) {
-		            alert(title)
+	            shoutTheTitle(troll, index) {
+		            alert(troll.name + ' - ' + troll.lastName + ' : ' + index)
 	            }
 	        }
         },
         template: `
             <div>
                 <h1>Przykład komunikacji do komponentu</h1>
-                <my-title super-title="Hello World - przykładowy tytuł" @shout="shoutTheTitle($event)"></my-title>
+                <my-title super-title="Hello World - przykładowy tytuł" v-on:shout2="shoutTheTitle($event, 89)"></my-title>
                 <pre>    UWAGA: Nasłuchujemy eventu tylko w komponencie powyżej! (patrz: @shout)
                 </pre>
                 <div>pamiętaj, że nie musimy przekazywać statycznych wartości, możemy coś zbindować:</div>
