@@ -48,7 +48,7 @@
             return {
 		        applicationTitle: 'Moja super aplikacja',
                 // Refactor#2: Destructuring odrazu w parametrze funkcji (da się zrobić !)
-	            shoutTheTitle({name, lastName}, index) {
+	            shoutTheTitle({name, lastName}, index = 7) {
 		            // alert(creature.name + ' - ' + creature.lastName + ' : ' + index)
                     // Refactoring:
                     // Destructuring:
@@ -66,7 +66,7 @@
                 <pre>    UWAGA: Nasłuchujemy eventu tylko w komponencie powyżej! (patrz: @shout)
                 </pre>
                 <div>pamiętaj, że nie musimy przekazywać statycznych wartości, możemy coś zbindować:</div>
-                <my-title :super-title="applicationTitle" />
+                <my-title :super-title="applicationTitle" v-on:shout2="shoutTheTitle($event)" />
                 <my-title v-bind:super-title="applicationTitle" />
                 <div>Pamiętaj, że bindowanie jest jak "otwarcie świata" JS po prawej stronie (w środku " ") </div>
                 <my-title :super-title=" 1 + 1 + '100' "></my-title>
