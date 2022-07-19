@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    
+    <script type="module">
+        const myPromise = new Promise((resolve, reject) => {
+            resolve(['my', 'fake', 'data'])
+        })
+
+        const myData = await myPromise;  
+        console.log(myData);
+    </script>
+
+
+    <script type="module">
+        // Even simpler:
+        const myPromiseSimpler = Promise.resolve(['my', 'simpler', 'data'])
+
+        const myDataSimpler = await myPromiseSimpler;  
+        console.log(myDataSimpler);
+    </script>
+
+    <script type="module">
+        const loadNumber = () => Promise.resolve(786)
+
+        const numberData = await loadNumber();  
+        console.log(numberData);
+    </script>
+
+    <script>
+        const myTodos = axios.get('https://jsonplaceholder.typicode.com/todos')   
+        
+        myTodos
+            .then((value) => { // To się uruchomi jak będzie #1 (sukcess)
+                console.log(value.data); 
+                return 'test';
+            }) 
+            .then((value) => { 
+                console.log(value); 
+            })
+            .catch((err) => {  // To się uruchomi jak będzie #2 (porażka)
+                console.error(err.message)   
+            })
+
+    </script>
+
+</body>
+</html>
