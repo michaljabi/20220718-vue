@@ -47,8 +47,14 @@
         setup() {
             return {
 		        applicationTitle: 'Moja super aplikacja',
-	            shoutTheTitle(troll, index) {
-		            alert(troll.name + ' - ' + troll.lastName + ' : ' + index)
+	            shoutTheTitle(creature, index) {
+		            // alert(creature.name + ' - ' + creature.lastName + ' : ' + index)
+                    // Refactoring:
+                    // Destructuring:
+                    const {name, lastName} = creature;
+                    // Template string:
+                    // alert(name + ' - ' + lastName + ' : ' + index)
+                    alert(`${name} - ${lastName} : ${index}`)
 	            }
 	        }
         },
