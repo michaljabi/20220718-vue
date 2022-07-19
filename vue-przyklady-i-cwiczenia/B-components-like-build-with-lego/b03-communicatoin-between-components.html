@@ -47,11 +47,12 @@
         setup() {
             return {
 		        applicationTitle: 'Moja super aplikacja',
-	            shoutTheTitle(creature, index) {
+                // Refactor#2: Destructuring odrazu w parametrze funkcji (da się zrobić !)
+	            shoutTheTitle({name, lastName}, index) {
 		            // alert(creature.name + ' - ' + creature.lastName + ' : ' + index)
                     // Refactoring:
                     // Destructuring:
-                    const {name, lastName} = creature;
+                    // Refactor #2 const {name, lastName} = creature;
                     // Template string:
                     // alert(name + ' - ' + lastName + ' : ' + index)
                     alert(`${name} - ${lastName} : ${index}`)
