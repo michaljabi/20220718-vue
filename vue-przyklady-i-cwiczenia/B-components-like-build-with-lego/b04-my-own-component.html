@@ -46,7 +46,7 @@
     -->
     <div id="app"></div>
     <script>
-      const { createApp, ref } = Vue;
+      const { createApp, ref, computed } = Vue;
 
       const MyOwnPart = {
         props: {
@@ -57,7 +57,19 @@
            }
         },
         emits: ['infoMessage'],
-        template: `<h2>{{text}}</h2> <button @click="$emit('infoMessage', text)"> Wyślij informację </button>`
+
+        // Jak po stronie logiki dostać się do props ?!
+        setup(props) {
+
+            const myInfoText = computed(() => 'hello, twój props miał wartośc:' + props.text)
+
+            return { myInfoText }
+        },
+        template: `
+            <h2>{{text}}</h2> 
+            <button @click="$emit('infoMessage', text)"> Wyślij informację </button>
+            <h3>{{myInfoText}}</h3>
+            `
       }
 
       const app = createApp({
@@ -67,6 +79,11 @@
         setup(){
 		    const yourTitle = ref('Hello Component')
 		    const componentSaid = ref('')
+
+            setTimeout(() => {
+                yourTitle.value = 'HEJ ! to działa'
+            }, 3000)
+
             return {
                 yourTitle,
                 componentSaid,
