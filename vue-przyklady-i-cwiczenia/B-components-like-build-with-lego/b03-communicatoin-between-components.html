@@ -26,7 +26,7 @@
 
       const MyTitle = {
           props: {
-            superTitle: String // @hint: Tutaj określamy tzw props'a (nazwa i przeznaczenie podobne jak np. w React) i jego typ
+            superTitle: [String, Number] // @hint: Tutaj określamy tzw props'a (nazwa i przeznaczenie podobne jak np. w React) i jego typ
           },
           // Nie jest to konieczne, natomiast dla porządku określamy, jakie eventy może emitować ten komponent:
           emits: ['shout2'],
@@ -69,7 +69,9 @@
                 <my-title :super-title="applicationTitle" v-on:shout2="shoutTheTitle($event)" />
                 <my-title v-bind:super-title="applicationTitle" />
                 <div>Pamiętaj, że bindowanie jest jak "otwarcie świata" JS po prawej stronie (w środku " ") </div>
-                <my-title :super-title=" 1 + 1 + '100' "></my-title>
+
+                <!-- Jawne rzutowanie na Number() -->
+                <my-title :super-title=" 1 + 1 + Number('100') "></my-title>
             </div>
         `
       })
