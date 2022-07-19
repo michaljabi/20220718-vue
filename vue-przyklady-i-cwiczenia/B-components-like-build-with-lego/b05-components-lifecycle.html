@@ -20,30 +20,37 @@
     -->
     <div id="app"></div>
     <script>
-      const { onMounted, onBeforeUnmount } = Vue;
+      const { onMounted, onBeforeUnmount, ref } = Vue;
       // usuń komentarze ze znaczkiem '#':
       // aby zobaczyć problem "memory leak" i sposób pozbycia się go (metoda: beforeUnmount)
 
       let registeredId = 0;
       const HeroBanner = {
         template: `
-            <section style="background-color: dodgerblue; padding: 20px"> Mój Super banner </section>
+            <section style="background-color: dodgerblue; padding: 20px"> Mój Super banner {{ time }}</section>
         `,
         setup() {
-			//# let intervalID;
+			let intervalID;
+            const time = ref(0)
 		    onMounted(() => {
                 console.log('HeroBanner mounted !')
                 const myNumber = ++registeredId;
-                //# intervalID = setInterval(() => console.log('Welcome number: ' + myNumber), 500)
+                let no = 0;
+                intervalID = setInterval(() => {
+                    console.log('Welcome number: #id=' + myNumber, no++)
+                    time.value = no;
+                }, 500)
             })
 	        onBeforeUnmount(() => {
                 console.log('HeroBanner beforeUnmount !')
-                //# clearInterval(intervalID)
+                clearInterval(intervalID)
 	        })
+
+            return { time }
         }
       }
 
-      const { createApp, ref } = Vue;
+      const { createApp } = Vue;
       const app = createApp({
         components: {
             HeroBanner
