@@ -49,11 +49,20 @@
       const { createApp, ref } = Vue;
 
       const MyOwnPart = {
-
+        props: {
+           // requirements:
+           text: {
+             type: String,
+             required: true 
+           }
+        },
+        template: `<h2>{{text}}</h2>`
       }
 
       const app = createApp({
-        components: {},
+        components: {
+            MyOwnPart
+        },
         setup(){
 		    const yourTitle = ref('Hello Component')
 		    const componentSaid = ref('')
@@ -69,7 +78,7 @@
             <main>
                 <h1>Przykład komunikacji z i do komponentu</h1>
                 <section class="component-wrapper">
-                    {{ 'Miejsce na Twój komponent' }}
+                    <MyOwnPart :text="yourTitle" />
                 </section>
                 <section>
                     Informacja od komponentu: <strong>{{ componentSaid }}</strong>
