@@ -80,6 +80,7 @@
                 <h1>Przykład komunikacji z i do komponentu</h1>
                 <section class="component-wrapper">
                     <MyOwnPart :text="yourTitle" @infoMessage="handleGreetings" />
+                    <my-own-part text="Coś innego" @info-message="handleGreetings" />
                 </section>
                 <section>
                     Informacja od komponentu: <strong>{{ componentSaid }}</strong>
