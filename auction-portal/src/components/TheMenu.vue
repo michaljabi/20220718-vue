@@ -1,4 +1,5 @@
 <script setup>
+    import { RouterLink } from 'vue-router'
     import { ref } from 'vue'
 
     const isMenuShown = ref(false)
@@ -26,7 +27,7 @@
             przygotuj model danych w logice.
         -->
         <li class="nav-item" v-for="item in menuItems" :key="item.link">
-          <a class="nav-link" :href="item.link">{{item.name}}</a>
+          <RouterLink class="nav-link" :to="item.link">{{item.name}}</RouterLink>
         </li>
       </ul>
     </div>
