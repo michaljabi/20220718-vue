@@ -7,7 +7,14 @@
             {
                 id: 1,
                 title: "Części do aparatu",
-                imgUrl: "https://picsum.photos/id/36/200/200",
+                imgUrl: "https://picsum.photos/id/36/400/400",
+                description: "Jakiś inny opis",
+                price: 2000
+            },
+            {
+                id: 2,
+                title: "Części do aparatu",
+                imgUrl: "https://picsum.photos/id/232/400/400",
                 description: "Jakiś opis",
                 price: 2000
             }
@@ -17,6 +24,7 @@
 
 <script setup>
     import {ref, onMounted} from 'vue'
+    import AuctionCard from '@/components/AuctionCard.vue'
 
     const auctions = ref([])
 
@@ -30,20 +38,14 @@
 <template>
     <h2>Lista naszych aukcji</h2>
     <div class="row">
-       <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
-          <AuctionCard />
+       <div v-for="item in auctions" :key="item.id" class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
+          <AuctionCard :auction="item" />
           <!-- 
             wykorzystaj auctions i iteruj v-for, 
             utwórz nowy komponent <AuctionCard> i przekazj jako prop auction 
             https://codesandbox.io/s/auction-portal-pure-html-0cu8c?file=/acuction-item-card.html:0-339        
         -->
-       </div> 
-       <!-- przykład: -->
-       <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
-          Aukcja 2
-       </div> 
-       <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
-          Aukcja 3
-       </div> 
+       </div>
+       <AuctionCard :auction="{}" /> 
     </div>
 </template>
