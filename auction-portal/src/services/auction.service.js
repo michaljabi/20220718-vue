@@ -6,5 +6,8 @@ const auctionsURL = `${baseURL}/auctions`
 export const auctionService = {
     getAll(controller) {
         return axios.get(auctionsURL, {signal: controller.signal})
+    },
+    addAuction(auction) {
+        return axios.post(auctionsURL, auction)
     }
 }

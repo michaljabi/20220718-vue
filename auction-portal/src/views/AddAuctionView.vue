@@ -1,5 +1,56 @@
 <script setup>
+    import { ref, reactive, computed } from 'vue';
+    import { auctionService } from '../services/auction.service';
 
+    const auction = reactive({
+        title: 'coś',
+        imgUrl: 1,
+        description: '',
+        price: 0
+    })
+    const auctionErrors = ref({
+        title: '',
+        imgUrl: '',
+        description: '',
+        price: ''
+    })
+
+    function validate() {
+        let isValid = true;
+        auctionErrors.value = {
+            title: '',
+            imgUrl: '',
+            description: '',
+            price: ''
+        }
+        if(!auction.title) {
+           auctionErrors.value.title = 'Title is required'
+           isValid = false;
+        }
+        if(!auction.price) {
+           auctionErrors.value.price = 'Price must be defined'
+           isValid = false;
+        }
+        return isValid;
+    } 
+
+    const imgUrl = computed(() => `https://picsum.photos/id/${auction.imgUrl}/600/600`)
+
+    async function handleSubmit() {
+        const auctionToSend = {...auction};
+        auctionToSend.imgUrl = imgUrl.value;
+
+        if(!validate()) {
+            return;
+        }
+
+        try {
+           const { data } =  await auctionService.addAuction(auctionToSend)
+           console.log(data);
+        } catch (err) {
+           console.log(err)
+        }
+    }
 </script>
 
 <template>
@@ -9,11 +60,11 @@
     <img
       class="img-thumbnail"
       alt="Podgląd fotografii"
-      src="https://picsum.photos/id/1/600/600"
+      :src="imgUrl"
     />
   </div>
   <div class="col-6">
-    <form>
+    <form @submit.prevent="handleSubmit()">
       <div class="form-group">
         <label for="auctionTitle">Nazwa aukcji</label>
         <div class="input-group mb-3">
@@ -26,10 +77,13 @@
             id="auctionTitle"
             type="text"
             name="title"
-            required
             class="form-control"
+            v-model="auction.title"
           />
         </div>
+         <div class="alert alert-danger" v-if="auctionErrors.title">
+            {{auctionErrors.title}}
+         </div>
       </div>
 
       <div class="form-group">
@@ -44,9 +98,12 @@
             id="auctionPrice"
             type="number"
             name="price"
-            required
             class="form-control"
+            v-model="auction.price"
           />
+        </div>
+        <div class="alert alert-danger" v-if="auctionErrors.price">
+            {{auctionErrors.price}}
         </div>
       </div>
 
@@ -64,6 +121,7 @@
             name="imgUrl"
             required
             class="form-control"
+            v-model="auction.imgUrl"
           />
         </div>
       </div>
@@ -76,6 +134,7 @@
             rows="5"
             class="form-control"
             name="description"
+            v-model="auction.description"
           ></textarea>
         </div>
       </div>
