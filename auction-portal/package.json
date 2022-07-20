@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite --open",
+    "dev-backend": "json-server --watch fake-db.json",
     "build": "vite build",
     "preview": "vite preview --port 4173",
     "test:unit": "vitest --environment jsdom",
@@ -23,6 +24,7 @@
     "eslint": "^8.5.0",
     "eslint-plugin-vue": "^9.0.0",
     "jsdom": "^20.0.0",
+    "json-server": "^0.17.0",
     "prettier": "^2.5.1",
     "vite": "^3.0.2",
     "vitest": "^0.18.1",
