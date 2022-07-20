@@ -1,6 +1,9 @@
 <script setup>
     import { RouterLink } from 'vue-router'
     import { ref } from 'vue'
+    import { useCartStore } from '@/stores/cart'
+
+    const castStore = useCartStore();
 
     const isMenuShown = ref(false)
     const menuItems = [
@@ -33,7 +36,7 @@
     </div>
     <div>
       <RouterLink to="/add-auction" class="btn btn-secondary m-2">Dodaj aukcje</RouterLink>
-      <RouterLink to="/cart" class="btn btn-secondary m-2">Koszyk</RouterLink> 
+      <RouterLink to="/cart" class="btn btn-secondary m-2">Koszyk ({{castStore.allItemsCount}})</RouterLink> 
     </div>
   </nav>
 </template>

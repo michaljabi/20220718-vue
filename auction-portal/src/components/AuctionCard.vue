@@ -1,7 +1,10 @@
 <script setup>
 import { shape, integer, number, string } from 'vue-types'
+import { useCartStore } from '@/stores/cart'
 
-defineProps({
+const cartStore = useCartStore();
+
+const props = defineProps({
     auction: shape({
         id: integer().isRequired,
         title: string().isRequired,
@@ -27,6 +30,9 @@ defineProps({
     //     }
     // }
 })
+
+
+
 </script>
 
 <template>
@@ -37,7 +43,7 @@ defineProps({
         <p class="card-text">{{auction.description}}</p>
         <div class="d-flex justify-content-between align-content-center">
         <strong> {{auction.price}} zł</strong>
-        <button class="btn btn-primary"></button>
+        <button class="btn btn-primary" @click="cartStore.addToCart(props.auction)"></button>
         </div>
     </div>
     </div>
