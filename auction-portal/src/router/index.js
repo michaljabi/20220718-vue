@@ -4,6 +4,8 @@ import AuctionsView from '@/views/AuctionsView.vue'
 import PromotionsView from '@/views/PromotionsView.vue'
 import AdvicesView from '@/views/AdvicesView.vue'
 import Page404View from '@/views/Page404View.vue'
+import AddAuctionView from '@/views/AddAuctionView.vue'
+import CartView from '@/views/CartView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -24,6 +26,14 @@ const router = createRouter({
     {
       path: '/advices',
       component: AdvicesView
+    },
+    { 
+      path: '/add-auction', 
+      component: AddAuctionView
+    },
+    { 
+      path: '/cart',
+      component: CartView
     },
     {
       path: '/:pathMatch(.*)*',

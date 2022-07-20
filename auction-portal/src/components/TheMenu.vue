@@ -4,9 +4,9 @@
 
     const isMenuShown = ref(false)
     const menuItems = [
-        { link: 'auctions', name: 'Aukcje' },
-        { link: 'promotions', name: 'Promocje' },
-        { link: 'advices', name: 'Podpowiadamy' },
+        { link: '/auctions', name: 'Aukcje' },
+        { link: '/promotions', name: 'Promocje' },
+        { link: '/advices', name: 'Podpowiadamy' },
     ]
 
     function handleMenuToggle() {
@@ -30,6 +30,10 @@
           <RouterLink class="nav-link" :to="item.link">{{item.name}}</RouterLink>
         </li>
       </ul>
+    </div>
+    <div>
+      <RouterLink to="/add-auction" class="btn btn-secondary m-2">Dodaj aukcje</RouterLink>
+      <RouterLink to="/cart" class="btn btn-secondary m-2">Koszyk</RouterLink> 
     </div>
   </nav>
 </template>
