@@ -1,7 +1,12 @@
 <script setup>
     import { ref } from 'vue'
 
-    const isMenuShown = ref(true)
+    const isMenuShown = ref(false)
+    const menuItems = [
+        { link: 'auctions', name: 'Aukcje' },
+        { link: 'promotions', name: 'Promocje' },
+        { link: 'advices', name: 'Podpowiadamy' },
+    ]
 
     function handleMenuToggle() {
         isMenuShown.value = !isMenuShown.value
@@ -16,14 +21,12 @@
     </button>
     <div class="collapse navbar-collapse" :class="{ show: isMenuShown }">
       <ul class="navbar-nav">
-        <li class="nav-item active">
-          <a class="nav-link" href="auctions">Aukcje</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="promotions">Promocje</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="advices">Podpowiadamy</a>
+        <!-- 
+            zastosuj v-for :key="" do generowania elementów menu
+            przygotuj model danych w logice.
+        -->
+        <li class="nav-item" v-for="item in menuItems" :key="item.link">
+          <a class="nav-link" :href="item.link">{{item.name}}</a>
         </li>
       </ul>
     </div>
