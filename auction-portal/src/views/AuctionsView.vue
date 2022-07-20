@@ -28,10 +28,19 @@
     import { auctionService } from '@/services/auction.service'
 
     const auctions = ref([])
+    const isLoading = ref(true);
+    const errorMessage = ref('');
 
     onMounted(async () => {
-        const response = await auctionService.getAll();
-        auctions.value = response.data;
+        try {
+            const response = await auctionService.getAll();
+            auctions.value = response.data;
+        } catch (err) {
+            console.log(err);
+            errorMessage.value = err;
+        } finally {
+            isLoading.value = false
+        }
     })
 
     console.log('Hello form New AuctiosView Instance!');
@@ -40,6 +49,12 @@
 <template>
     <h2>Lista naszych aukcji</h2>
     <div class="row">
+        <div class="col-12" v-if="isLoading">
+            <div class="alert alert-info"> Ładuję aukcje... </div>
+       </div>
+       <div class="col-12" v-if="errorMessage">
+            <div class="alert alert-danger"> Wystąpił błąd: {{errorMessage}}</div>
+       </div>
        <div v-for="item in auctions" :key="item.id" class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
           <AuctionCard :auction="item" />
           <!-- 
