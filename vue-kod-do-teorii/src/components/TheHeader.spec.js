@@ -23,7 +23,7 @@ describe("TheHeader.vue", () => {
     expect($h1.text()).toMatch("Witaj świecie");
   });
 
-  it('should add one "❗" exclamation to title per one header clicked', async () => {
+  it('should add one "❗" exclamation to title per one header click', async () => {
     // Given | Arrange:
     const wrapper = shallowMount(TheHeader, {
       props: { title: "Example title" },

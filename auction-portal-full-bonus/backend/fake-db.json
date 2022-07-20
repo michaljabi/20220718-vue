@@ -1,0 +1,60 @@
+{
+  "auctions": [
+    {
+      "id": 1,
+      "title": "Części do aparatu",
+      "imgUrl": "https://picsum.photos/id/36/200/200",
+      "description": "Jakiś opis",
+      "price": 2000
+    },
+    {
+      "id": 2,
+      "title": "Mac Book",
+      "imgUrl": "https://picsum.photos/id/48/200/200",
+      "description": "Używany - ale sprawny",
+      "price": 4000
+    },
+    {
+      "id": 3,
+      "title": "Smartfon",
+      "imgUrl": "https://picsum.photos/id/160/200/200",
+      "description": "",
+      "price": 800
+    },
+    {
+      "id": 4,
+      "title": "Samochoód",
+      "imgUrl": "https://picsum.photos/id/183/200/200",
+      "description": "Zabytkowy ogórek",
+      "price": 1200
+    },
+    {
+      "title": "test",
+      "price": 90,
+      "description": "bluza",
+      "imgUrl": "https://picsum.photos/id/338/600/600",
+      "id": 5
+    },
+    {
+      "title": "komputer",
+      "price": 2300,
+      "description": "",
+      "imgUrl": "https://picsum.photos/id/8/600/600",
+      "id": 6
+    },
+    {
+      "title": "wodospad",
+      "price": 23100,
+      "description": "saq",
+      "imgUrl": "https://picsum.photos/id/15/600/600",
+      "id": 7
+    },
+    {
+      "title": "laptop",
+      "price": 21232,
+      "description": "ssws",
+      "imgUrl": "https://picsum.photos/id/5/600/600",
+      "id": 8
+    }
+  ]
+}
