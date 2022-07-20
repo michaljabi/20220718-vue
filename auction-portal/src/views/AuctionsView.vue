@@ -46,6 +46,5 @@
             https://codesandbox.io/s/auction-portal-pure-html-0cu8c?file=/acuction-item-card.html:0-339        
         -->
        </div>
-       <AuctionCard :auction="{}" /> 
     </div>
 </template>

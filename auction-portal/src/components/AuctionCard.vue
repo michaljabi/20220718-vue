@@ -1,17 +1,31 @@
 <script setup>
+import { shape, integer, number, string } from 'vue-types'
+
 defineProps({
-    auction: {
-        type: Object,
-        default: () => {
-            return { 
-                id: 3,
-                title: "Most",
-                imgUrl: "https://picsum.photos/id/122/400/400",
-                description: "Jakiś opis 23",
-                price: 1000
-           }
+    auction: shape({
+        id: integer().isRequired,
+        title: string().isRequired,
+        imgUrl: string(),
+        description: string(),
+        price: number().isRequired
+    }).def(() => {
+         return { 
+            imgUrl: "https://picsum.photos/id/122/400/400",
+            description: "Jakiś opis 23",
         }
-    }
+    })
+    // auction: {
+    //     type: Object,
+    //     default: () => {
+    //         return { 
+    //             id: 3,
+    //             title: "Most",
+    //             imgUrl: "https://picsum.photos/id/122/400/400",
+    //             description: "Jakiś opis 23",
+    //             price: 1000
+    //        }
+    //     }
+    // }
 })
 </script>
 
