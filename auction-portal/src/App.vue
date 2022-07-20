@@ -1,7 +1,8 @@
 <script setup>
+import { RouterView } from 'vue-router';
 import TheHeader from './components/TheHeader.vue';
 import TheMenu from './components/TheMenu.vue';
-import AuctionsView from './views/AuctionsView.vue';
+
 
 const myNumber = 2;
 </script>
@@ -10,7 +11,7 @@ const myNumber = 2;
   <TheHeader :text="'Auction Portal ' + myNumber"/> 
   <main class="container">
     <TheMenu />
-    <AuctionsView />
+    <RouterView />
   </main>
 </template>
 
