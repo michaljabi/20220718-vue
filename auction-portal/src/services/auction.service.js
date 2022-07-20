@@ -4,7 +4,7 @@ const baseURL = import.meta.env.VITE_BACKEND_URL
 const auctionsURL = `${baseURL}/auctions`
 
 export const auctionService = {
-    getAll() {
-        return axios.get(auctionsURL)
+    getAll(controller) {
+        return axios.get(auctionsURL, {signal: controller.signal})
     }
 }

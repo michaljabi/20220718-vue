@@ -23,7 +23,8 @@
 </script>
 
 <script setup>
-    import {ref, onMounted} from 'vue'
+    import axios from 'axios'
+    import {ref, onMounted, onUnmounted} from 'vue'
     import AuctionCard from '@/components/AuctionCard.vue'
     import { auctionService } from '@/services/auction.service'
 
@@ -31,16 +32,25 @@
     const isLoading = ref(true);
     const errorMessage = ref('');
 
+    const abortRequest = new AbortController();
+
     onMounted(async () => {
         try {
-            const response = await auctionService.getAll();
+            const response = await auctionService.getAll(abortRequest);
             auctions.value = response.data;
+            console.log('Aukcje przyszły !', auctions.value);
         } catch (err) {
-            console.log(err);
-            errorMessage.value = err;
+            if(!axios.isCancel(err) ) {
+                console.log(err);
+                errorMessage.value = err;
+            } 
         } finally {
             isLoading.value = false
         }
+    })
+
+    onUnmounted(() => {
+        abortRequest.abort();
     })
 
     console.log('Hello form New AuctiosView Instance!');
