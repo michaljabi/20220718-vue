@@ -42,7 +42,7 @@
         } catch (err) {
             if(!axios.isCancel(err) ) {
                 console.log(err);
-                errorMessage.value = err;
+                errorMessage.value = err.message;
             } 
         } finally {
             isLoading.value = false
