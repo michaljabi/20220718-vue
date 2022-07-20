@@ -2,7 +2,7 @@
     // TO jest mock !
     // Finalnie zamienimy to na fizyczny strzał do AJAX (backend call)
     console.log('Hello form Auctions MOCK - one time only...');
-    async function getAuctions() {
+    /* async function getAuctions() {
         return [
             {
                 id: 1,
@@ -19,17 +19,19 @@
                 price: 2000
             }
         ]
-    }
+    } */
 </script>
 
 <script setup>
     import {ref, onMounted} from 'vue'
     import AuctionCard from '@/components/AuctionCard.vue'
+    import { auctionService } from '@/services/auction.service'
 
     const auctions = ref([])
 
     onMounted(async () => {
-        auctions.value = await getAuctions();
+        const response = await auctionService.getAll();
+        auctions.value = response.data;
     })
 
     console.log('Hello form New AuctiosView Instance!');
