@@ -11,7 +11,9 @@ const props = defineProps({
   startRating: number().def(MAX_RATE),
 })
 
-const currentRating = ref(props.startRating)
+const isBetweenExpectedValues = props.startRating >= MIN_RATE && props.startRating <= MAX_RATE
+const numberOfStars = isBetweenExpectedValues ? props.startRating : MAX_RATE
+const currentRating = ref(numberOfStars)
 
 function addRate(amount) {
   const { value } = currentRating
@@ -26,10 +28,10 @@ function addRate(amount) {
 <template>
   <section>
     <code>({{ currentRating }})</code>
-    <span v-for="index in currentRating" :key="index">⭐</span>
+    <span data-testid="star" v-for="index in currentRating" :key="index">⭐</span>
     <div class="p-2">
-      <button class="btn btn-secondary" @click="addRate(-1)">-</button>
-      <button class="btn btn-primary mx-2" @click="addRate(1)">+</button>
+      <button data-testid="dec" class="btn btn-secondary" @click="addRate(-1)">-</button>
+      <button data-testid="inc" class="btn btn-primary mx-2" @click="addRate(1)">+</button>
     </div>
   </section>
 </template>

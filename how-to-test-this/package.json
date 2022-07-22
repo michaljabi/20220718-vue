@@ -5,6 +5,7 @@
     "dev": "vite --open --port 5180",
     "build": "vite build",
     "preview": "vite preview --port 4173",
+    "test:rating": "npm run test:unit -- --reporter verbose ItemRating.spec.js",
     "test:unit": "vitest --environment jsdom",
     "test:ui": "npm run test:unit -- --ui",
     "test:verbose": "npm run test:unit -- --reporter verbose",

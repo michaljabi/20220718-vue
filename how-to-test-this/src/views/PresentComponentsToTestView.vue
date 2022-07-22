@@ -36,6 +36,6 @@ import ItemRating from '@/task-for-day-4/ItemRating.vue'
     <ComponentWithFormInputVeeValidate />
   </InfoPresenter>
   <InfoPresenter explain="Twoje zadanie do przetestowania">
-    <ItemRating />
+    <ItemRating :startRating="10" />
   </InfoPresenter>
 </template>
