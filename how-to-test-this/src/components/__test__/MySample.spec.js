@@ -3,11 +3,11 @@ import { mount } from '@vue/test-utils'
 import { defineComponent } from 'vue'
 
 const MySample = defineComponent({
-  template: '<h2>Hello From inline component</h2>',
+  template: '<h3>Hello From inline component</h3>',
 })
 
 describe('In file MySample component', () => {
-  it('should be present in wrapper', () => {
+  it('should From inline be present in component text', () => {
     const wrapper = mount(MySample)
 
     expect(wrapper.html()).toContain('From inline')

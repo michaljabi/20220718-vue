@@ -4,6 +4,7 @@ import { it, expect, describe } from 'vitest'
 const sumNumbers = (a, b) => a + b
 
 describe('sumNumbers', () => {
+
   it('should be 3 x A (Arrange Act Assert) format', () => {
     // Arrange (Given)
     const a = 100

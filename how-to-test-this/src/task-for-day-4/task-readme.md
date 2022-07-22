@@ -4,9 +4,9 @@
                 
 ### Przepis na rozwiązanie zadania:
 
-1. Uruchom testy jako task: `test:watch` albo poleceniem
+1. Uruchom testy jako task: `test:verbose` albo poleceniem
 ```npm
-npm run test:watch
+npm run test:verbose
 ```
 
 2. Utwórz poprawnie nazwany plik z testem `.spec`
