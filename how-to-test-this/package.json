@@ -1,0 +1,38 @@
+{
+  "name": "how-to-test-this",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite --open --port 5180",
+    "build": "vite build",
+    "preview": "vite preview --port 4173",
+    "test:unit": "vitest --environment jsdom",
+    "test:ui": "npm run test:unit -- --ui",
+    "test:verbose": "npm run test:unit -- --reporter verbose",
+    "test:ci": "vitest run --environment jsdom",
+    "test:coverage": "npm run test:ci -- --coverage",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
+  },
+  "dependencies": {
+    "bootstrap": "^5.2.0",
+    "pinia": "^2.0.16",
+    "vee-validate": "^4.6.2",
+    "vue": "^3.2.37",
+    "vue-router": "^4.1.2"
+  },
+  "devDependencies": {
+    "@pinia/testing": "^0.0.12",
+    "@rushstack/eslint-patch": "^1.1.0",
+    "@vitejs/plugin-vue": "^3.0.1",
+    "@vitest/ui": "^0.18.1",
+    "@vue/eslint-config-prettier": "^7.0.0",
+    "@vue/test-utils": "^2.0.2",
+    "c8": "^7.12.0",
+    "eslint": "^8.5.0",
+    "eslint-plugin-vue": "^9.0.0",
+    "jsdom": "^20.0.0",
+    "prettier": "^2.5.1",
+    "vite": "^3.0.1",
+    "vitest": "^0.18.1",
+    "vue-types": "^4.1.1"
+  }
+}
